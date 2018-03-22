@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "reveal": "always",
+    "panel": "new"
+  },
+  "tasks": [
+    {
+      "label": "start backend win",
+      "type": "shell",
+      "command": "iex --werl -S mix phx.server",
+      "options": {
+        "env": {
+          "URBAN_PHOENIX_PORT": "4015"
+        }
+      },
+      "problemMatcher": ["$mixCompileError", "$mixCompileWarning"],
+      "group": "build"
+    }
+  ]
+}
