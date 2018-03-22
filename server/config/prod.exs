@@ -57,6 +57,7 @@ config :logger, level: :info
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
+
 #     config :urban, UrbanWeb.Endpoint,
 #       force_ssl: [hsts: true]
 #
