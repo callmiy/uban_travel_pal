@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import jss from 'jss';
-import Carousel from 'nuka-carousel';
+import Carousel from 'react-slick';
 
 import headerImg from './images/header.webp';
 import slide1 from './images/slide1.jpg';
@@ -92,6 +92,11 @@ const styles = {
     padding: '0px 25px',
   },
 
+  carouselSection: {
+    width: '100%',
+    overflow: 'hidden',
+  },
+
   exampleSection: {},
 
   exampleSection_image: {
@@ -135,6 +140,16 @@ const { classes } = jss.createStyleSheet(styles).attach();
 
 class App extends Component {
   render() {
+    const carouselSettings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      arrows: false,
+    };
+
     return (
       <div className={`${classes.appRoot}`}>
         <section className={`${classes.headerSection}`}>
@@ -177,7 +192,10 @@ class App extends Component {
           </p>
         </section>
 
-        <Carousel autoplay wrapAround>
+        <Carousel
+          className={`${classes.carouselSection}`}
+          {...carouselSettings}
+        >
           <img src={slide1} alt="slide" />
           <img src={slide2} alt="slide" />
           <img src={slide3} alt="slide" />
@@ -218,9 +236,10 @@ class App extends Component {
 
               <div className={`${classes.exampleSection_text}`}>
                 Are you ready to experience moments that will last a lifetime?
-                Answer more questions to learn about exclusive " like a local"
-                tours that are designed just for you. Get ready to create some
-                unforgettable memories and don’t forget to send us a postcard!
+                Answer more questions to learn about exclusive &quot;like a
+                local&quot; tours that are designed just for you. Get ready to
+                create some unforgettable memories and don’t forget to send us a
+                postcard!
               </div>
             </div>
           </div>

@@ -17,6 +17,15 @@
     "react/no-multi-comp": [0],
     "no-bitwise": [0],
     "react/prefer-stateless-function": 0,
-    "react/sort-comp": 0
+    "react/sort-comp": 0,
+    "indent": 0,
+    "react/jsx-indent": 0,
+    "comma-dangle": 0,
+    "no-trailing-spaces": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "no-return-assign": 0,
+    "no-mixed-operators": 0,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-continue": 0
   }
 }

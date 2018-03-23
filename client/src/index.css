@@ -10,3 +10,37 @@ body {
   font-family: sans-serif;
   font-size: 1rem;
 }
+
+.slick-dots {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+  position: relative;
+  bottom: 30px;
+}
+
+.slick-dots li,
+.slick-dots li button {
+  cursor: pointer;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  margin: 0 5px;
+  padding: 0;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  padding: 5px;
+  border-color: #b5b5b5;
+  background: #b5b5b5;
+  border: 0;
+  outline: none;
+  border-radius: 50%;
+}
