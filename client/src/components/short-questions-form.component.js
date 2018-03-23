@@ -261,6 +261,12 @@ export default class ShortForm extends Component {
     }));
 
     setFieldValue('purpose', purpose);
+
+    if (!this.state.extendedQuestions && this.questionContainerEl) {
+      setTimeout(() => {
+        this.questionContainerEl.scrollTop = this.questionContainerEl.scrollHeight;
+      });
+    }
   };
 
   handleTransportClicked = (transport, setFieldValue) => () => {
@@ -291,12 +297,18 @@ export default class ShortForm extends Component {
     }));
 
     setFieldValue('meetLocals', meetLocals);
+
+    if (this.questionContainerEl) {
+      setTimeout(() => {
+        this.questionContainerEl.scrollTop = this.questionContainerEl.scrollHeight;
+      });
+    }
   };
 
   handleQuestionScroll = () => {
     const { y, height } = this.pinQuestionElDim;
 
-    if (y === null || height === null) {
+    if (y === null || height === null || y) {
       return;
     }
 
@@ -334,11 +346,6 @@ export default class ShortForm extends Component {
           pinQuestion
         }));
       }
-
-      // console.log(questionTitle, '\n', ely, elRemoveHeight, y2);
-      // console.log(this.state.pinQuestion !== pinQuestion &&
-      //     ely <= y &&
-      //     ely >= elRemoveHeight);
 
       if (
         this.state.pinQuestion === pinQuestion &&
@@ -469,6 +476,7 @@ export default class ShortForm extends Component {
               name="city"
               onChange={handleChange}
               onBlur={handleBlur}
+              autoComplete="off"
             />
           </div>
 
