@@ -17,6 +17,7 @@
     "jss-preset-default": "^4.3.0",
     "localforage": "^1.6.0",
     "lodash-es": "^4.17.7",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-loadable": "^5.3.1",

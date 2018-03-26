@@ -1,144 +1,22 @@
 import React, { Component } from 'react';
-import jss from 'jss';
 import Carousel from 'react-slick';
 
-import headerImg from './images/header.webp';
 import slide1 from './images/slide1.jpg';
 import slide2 from './images/slide2.jpg';
 import slide3 from './images/slide3.jpeg';
 import cuisineImg from './images/cuisine.webp';
 import localExpImg from './images/local-experience.webp';
 import urbanBeachImg from './images/urban-beach-hol.webp';
-import ShortForm from './components/short-questions-form.component';
-
-const styles = {
-  appRoot: {
-    'max-width': '400px',
-    height: '100%',
-    display: 'flex',
-    'flex-direction': 'column',
-    margin: '0 auto 20px auto',
-  },
-
-  headerSection: {
-    background: `url(${headerImg})`,
-    'min-height': '600px',
-    'max-height': '600px',
-    position: 'relative',
-    display: 'flex',
-    'flex-direction': 'column',
-    'justify-content': 'space-between',
-    'text-align': 'center',
-  },
-
-  headerSection_title: {
-    'font-weight': 900,
-    color: '#fff',
-    padding: '30px',
-    background: '#00000094',
-  },
-
-  headerSection_slogan: {
-    'font-size': '1.3rem',
-    color: '#fff',
-    'font-weight': 600,
-    'background-color': '#0000004a',
-    width: '90%',
-    margin: '0 auto',
-    border: '1px solid #0000004a',
-    'border-radius': '8px',
-  },
-
-  headerSection_card: {
-    'background-color': '#00000021',
-    position: 'relative',
-    color: '#fff',
-    padding: '30px',
-    'font-weight': 500,
-    'font-size': '1.2rem',
-    'line-height': '1.5',
-  },
-
-  questionSection: {
-    display: 'flex',
-    'flex-direction': 'column',
-    'margin-top': '30px',
-  },
-
-  questionSection_prompt: {
-    'text-align': 'center',
-    color: '#393F44',
-    'word-wrap': 'break-word',
-    padding: '0 40px',
-    'line-height': '1.5',
-    'font-size': '1.2rem',
-  },
-
-  questionSection_short_form: {},
-
-  aboutUsSection: {
-    color: '#393F44',
-    'text-align': 'center',
-    background: '#E5F0F1',
-    'margin-top': '20px',
-  },
-
-  aboutUsSection_title: {
-    'line-height': '1.5em',
-    'font-size': '22px',
-  },
-
-  aboutUsSection_text: {
-    padding: '0px 25px',
-  },
-
-  carouselSection: {
-    width: '100%',
-    overflow: 'hidden',
-  },
-
-  exampleSection: {},
-
-  exampleSection_image: {
-    height: '300px',
-    display: 'flex',
-    'flex-direction': 'column-reverse',
-    'margin-top': '30px',
-  },
-
-  exampleSection_imageInner: {
-    padding: '0 20px 10px',
-    'text-align': 'center',
-    background: '#00000047',
-    color: '#fff',
-  },
-
-  exampleSection_header: {},
-
-  exampleSection_text: {},
-
-  exampleSection_example: {
-    'margin-top': '30px',
-    position: 'relative',
-  },
-
-  exampleSection_imagex: {
-    width: '100%',
-  },
-
-  exampleSection_example_inner: {
-    padding: '0 20px 10px',
-    'text-align': 'center',
-    background: '#00000047',
-    color: '#fff',
-    position: 'absolute',
-    bottom: '15px',
-  },
-};
-
-const { classes } = jss.createStyleSheet(styles).attach();
+import ShortForm from './components/questions-form.component';
+import classes from './app.styles';
+import FormSubmittedSignUp from './components/form-submitted-signup.component';
 
 class App extends Component {
+  state = {
+    formSubmitted: false,
+    subscribed: false
+  };
+
   render() {
     const carouselSettings = {
       dots: true,
@@ -147,8 +25,12 @@ class App extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      arrows: false,
+      arrows: false
     };
+
+    const questionSectionPrompt = this.state.formSubmitted
+      ? 'Plan your next weekend trip in few clicks'
+      : 'Lets give you an awesome experience. Tell us a little about trip';
 
     return (
       <div className={`${classes.appRoot}`}>
@@ -170,13 +52,26 @@ class App extends Component {
         </section>
 
         <section className={`${classes.questionSection}`}>
-          <header className={`${classes.questionSection_prompt}`}>
-            Lets give you an awesome experience. Tell us a little about yourself
-          </header>
+          {!this.state.subscribed ? (
+            <header className={`${classes.questionSection_prompt}`}>
+              {questionSectionPrompt}
+            </header>
+          ) : (
+            undefined
+          )}
 
-          <div className={`${classes.questionSection_short_form}`}>
-            <ShortForm />
-          </div>
+          {this.state.formSubmitted ? (
+            undefined
+          ) : (
+            <div className={`${classes.questionSection_short_form}`}>
+              <ShortForm onFormSubmitted={this.onFormSubmitted} />
+            </div>
+          )}
+
+          <FormSubmittedSignUp
+            show={this.state.formSubmitted}
+            onSubscribed={this.onSubscribed}
+          />
         </section>
 
         <section className={`${classes.aboutUsSection}`}>
@@ -266,6 +161,11 @@ class App extends Component {
       </div>
     );
   }
+
+  onFormSubmitted = () =>
+    this.setState(prev => ({ ...prev, formSubmitted: true }));
+
+  onSubscribed = () => this.setState(prev => ({ ...prev, subscribed: true }));
 }
 
 export default App;
