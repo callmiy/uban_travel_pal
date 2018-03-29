@@ -39,7 +39,18 @@ defmodule Urban.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:plug_static_index_html, "~> 1.0"}
+      {:plug_static_index_html, "~> 1.0"},
+      {:timex, "~> 3.2"},
+      {:timex_ecto, "~> 3.2"},
+      {:absinthe, "~> 1.4"},
+      {:absinthe_plug, "~> 1.4"},
+      {:guardian, "~> 1.0"},
+      {:comeonin, "~> 4.1"},
+      {:absinthe_ecto, "~> 0.1.3"},
+      {:dialyxir, "~> 0.5.1", only: [:dev], runtime: false},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:faker, "~> 0.10.0"},
+      {:slugger, "~> 0.2"}
     ]
   end
 
