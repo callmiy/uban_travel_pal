@@ -51,8 +51,8 @@ defmodule Urban.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:faker, "~> 0.10.0"},
       {:slugger, "~> 0.2"},
-      {:phoenix_html, "~> 2.11"},
-      {:corsica, "~> 1.1"}
+      {:phoenix_html, "~> 2.11"}
+      # {:corsica, "~> 1.1"}
     ]
   end
 
