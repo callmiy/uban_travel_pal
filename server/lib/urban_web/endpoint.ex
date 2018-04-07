@@ -46,11 +46,11 @@ defmodule UrbanWeb.Endpoint do
     signing_salt: "Cwgxzc6E"
   )
 
-  # plug(
-  #   Corsica,
-  #   origins: "*",
-  #   allow_headers: ~w(Accept Content-Type Authorization Origin)
-  # )
+  plug(
+    Corsica,
+    origins: "*",
+    allow_headers: ~w(Accept Content-Type Authorization Origin)
+  )
 
   plug(UrbanWeb.Redictor)
   plug(UrbanWeb.Router)
