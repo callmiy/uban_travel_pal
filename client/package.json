@@ -37,7 +37,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "sjshs6so.bat && node scripts/deploy.js && yarn build && node scripts/copy-backend.js"
+    "deploy":
+      "sjshs6so.bat && node scripts/deploy.js && yarn build && node scripts/copy-backend.js"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

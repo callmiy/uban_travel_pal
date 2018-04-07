@@ -50,7 +50,8 @@ defmodule Urban.Mixfile do
       {:dialyxir, "~> 0.5.1", only: [:dev], runtime: false},
       {:bcrypt_elixir, "~> 1.0"},
       {:faker, "~> 0.10.0"},
-      {:slugger, "~> 0.2"}
+      {:slugger, "~> 0.2"},
+      {:phoenix_html, "~> 2.11"}
     ]
   end
 

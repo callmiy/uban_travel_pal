@@ -3,7 +3,7 @@ defmodule UrbanWeb.Endpoint do
 
   socket("/socket", UrbanWeb.UserSocket)
 
-  plug(Plug.Static.IndexHtml, at: "/")
+  # plug(Plug.Static.IndexHtml, at: "/index")
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -14,7 +14,7 @@ defmodule UrbanWeb.Endpoint do
     at: "/",
     gzip: false,
     from: "web-client",
-    only_matching: ~w(index.html favicon manifest robots.txt static service)
+    only_matching: ~w(index favicon manifest robots.txt static service)
   )
 
   # Code reloading can be explicitly enabled under the
@@ -46,6 +46,7 @@ defmodule UrbanWeb.Endpoint do
     signing_salt: "Cwgxzc6E"
   )
 
+  plug(UrbanWeb.Redictor)
   plug(UrbanWeb.Router)
 
   @doc """
