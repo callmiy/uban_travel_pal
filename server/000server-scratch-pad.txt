@@ -1,0 +1,87 @@
+Data
+{
+  "selections": [
+    "Theme based tours",
+    "Visit local bars"
+  ],
+  "correct": true
+}
+
+
+https://d5b49183.ngrok.io/api/validation?acta={{activity_a.choice}}&actd={{activity_d.choice}}&acte={{activity_e.choice}}&actf={{activity_f.choice}}&city={{city.choice}}
+
+
+Validating purpose selections backend
+
+
+Walking
+Biking
+
+Rental car
+Public transport
+Taxi
+
+
+travelling couple
+Family trip
+
+
+
+Solo trip
+with friends
+Romantic trip
+
+
+
+{{attributes.attributes__validation_url_prefix}}all?city={{city.choice}}&activities={{validating_activities_selections_backend.data__activities}}&budget={{budget.choice}}&purpose={{validating_purpose_selections_backend.data__purposes}}&transport={{validating_transport_selections_backend.data__transport}}&tourist_attraction={{ask_a_question_tourist_actractions.parsed_answer}}&meet_locals={{ask_a_question_meet_locals.parsed_answer}}
+
+{
+  "responses": {
+    "transport": " [\"Rental car\"]",
+    "tourist_attraction": "no",
+    "purpose": " [\"family trip\"]",
+    "meet_locals": "yes",
+    "city": "Berlin",
+    "budget": "between 200 and 400 ",
+    "activities": "[\"Dine in restaurants\",\"Try local cuisine\",\"Theme based tours\"]"
+  }
+}
+
+
+{
+  "transport": [
+    "Biking"
+  ],
+  "tourist_attraction": "no",
+  "purpose": [
+    "family trip"
+  ],
+  "meet_locals": "yes",
+  "city": "Berlin",
+  "budget": "between 200 and 400 ",
+  "activities": [
+    "Dine in restaurants",
+    "Explore night life",
+    "Visit local bars",
+    "Theme based tours"
+  ]
+}
+
+
+ 'transport': ["Biking", "Walking", "Public transport", "Taxi", "Rental car"],
+
+{
+'tourist_attraction': ["yes", "no"],
+
+'purpose': ["family trip", "travelling couple", "Solo trip", "with friends", "Romantic trip"],
+
+'meet_locals': ["yes", "no"],
+
+'budget': ["between 200 and 400", "less than 200 euro", "more than 400 euro"],
+
+'activities_a': ["Visit museums", "Guided tours", "Theme based tours", "Independent sights", "Exploring"],
+
+'activities_d': ["Visit local bars", "Try local cuisine", "Explore night life"],
+
+'activities_f': ["Shopping", "Dine in restaurants"],
+}
