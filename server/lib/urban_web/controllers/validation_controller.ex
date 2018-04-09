@@ -47,10 +47,6 @@ defmodule UrbanWeb.ValidationController do
     validate(conn, params, "purpose", :purposes)
   end
 
-  def validate_transport(conn, params) do
-    validate(conn, params, "transport", :transport)
-  end
-
   def validate_all(conn, params) do
     data =
       @unregex_patterns_replacement

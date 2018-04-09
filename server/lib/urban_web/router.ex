@@ -12,9 +12,16 @@ defmodule UrbanWeb.Router do
   scope "/api", UrbanWeb do
     pipe_through(:api)
 
+    resources("/bot_users", BotUserController, except: [:new, :edit])
+
+    resources(
+      "/bot_interactions",
+      BotInteractionController,
+      except: [:new, :edit]
+    )
+
     get("/validate_activities", ValidationController, :validate_activities)
     get("/validate_purposes", ValidationController, :validate_purposes)
-    get("/validate_transport", ValidationController, :validate_transport)
     post("/validate_all", ValidationController, :validate_all)
   end
 

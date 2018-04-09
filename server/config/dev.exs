@@ -39,8 +39,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :urban, Urban.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "urban_travel_pal",
+  password: "",
   database: "urban_dev",
   hostname: "localhost",
   pool_size: 10

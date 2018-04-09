@@ -85,3 +85,22 @@ Romantic trip
 
 'activities_f': ["Shopping", "Dine in restaurants"],
 }
+
+{{set_attribute_server_url.attributes__server_url}}/bot_users/
+
+{{upload_new_interaction_data_to_server.data__data__}}
+
+{{upload_new_interaction_data_to_server.data__data__user_response_name}}
+{{upload_new_interaction_data_to_server.data__data__email}}
+Label - skips here instead of name and email questions
+Returning user comes here directly instead of answering name and e-mail questions
+
+user_response_name
+user_response_email
+interaction_server_id
+
+
+flow
+===
+Additional Welcome Text
+I can help you come up with awesome experiences for your next travel. Click button below to get started.
