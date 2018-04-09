@@ -1,5 +1,7 @@
 defmodule UrbanWeb.ValidationController do
   use UrbanWeb, :controller
+  require Logger
+
   alias Urban.Utils
 
   @unwanted ["Skip", "More options"]

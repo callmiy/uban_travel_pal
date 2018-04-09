@@ -1,7 +1,8 @@
 defmodule Urban.BotInteractionHelper do
   alias Urban.BotUserTestHelper
   alias Urban.BotUserApi
-  alias Urban.BotUser
+  alias Urban.{BotUser, BotInteraction}
+  alias Urban.BotInteractionApi, as: Api
 
   @now Timex.now()
 
@@ -14,6 +15,15 @@ defmodule Urban.BotInteractionHelper do
     "deviceProduct" => "Galaxy S5",
     "mobile" => true
   }
+
+  def create_bot_interaction(attrs \\ %{}) do
+    {:ok, %BotInteraction{} = interaction} =
+      attrs
+      |> Enum.into(valid_attrs())
+      |> Api.create_bot_interaction()
+
+    interaction
+  end
 
   def create_bot_user do
     {

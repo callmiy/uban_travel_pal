@@ -20,6 +20,12 @@ defmodule UrbanWeb.Router do
       except: [:new, :edit]
     )
 
+    resources(
+      "/travel_preferences",
+      TravelPreferenceController,
+      except: [:new, :edit]
+    )
+
     post("/validate_activities", ValidationController, :validate_activities)
     post("/validate_purposes", ValidationController, :validate_purposes)
     post("/store_preferences", ValidationController, :store_preferences)

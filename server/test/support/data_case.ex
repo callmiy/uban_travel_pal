@@ -21,6 +21,7 @@ defmodule Urban.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import Urban.Factory
       import Urban.DataCase
     end
   end

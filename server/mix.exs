@@ -52,7 +52,8 @@ defmodule Urban.Mixfile do
       {:faker, "~> 0.10.0"},
       {:slugger, "~> 0.2"},
       {:phoenix_html, "~> 2.11"},
-      {:corsica, "~> 1.1"}
+      {:corsica, "~> 1.1"},
+      {:ex_machina, "~> 2.2"}
     ]
   end
 

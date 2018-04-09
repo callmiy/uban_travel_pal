@@ -3,6 +3,7 @@ defmodule Urban.BotInteraction do
   import Ecto.Changeset
 
   alias Urban.BotUser
+  alias Urban.TravelPreference
 
   @timestamps_opts [
     type: Timex.Ecto.DateTime,
@@ -29,6 +30,7 @@ defmodule Urban.BotInteraction do
     field(:metadata, :map)
     field(:response_path, :string)
     belongs_to(:bot_user, BotUser)
+    has_one(:travel_preference, TravelPreference)
 
     timestamps()
   end

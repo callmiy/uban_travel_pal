@@ -1,4 +1,19 @@
 defmodule Urban.BotUserTestHelper do
+  alias Urban.BotUserApi, as: Api
+  alias Urban.BotUser
+
+  def create_bot_user(attrs \\ %{}) do
+    {
+      :ok,
+      %BotUser{} = bot_user
+    } =
+      attrs
+      |> Enum.into(valid_attrs())
+      |> Api.create_bot_user()
+
+    bot_user
+  end
+
   def valid_attrs do
     %{
       email: "me@bot_user.com",
