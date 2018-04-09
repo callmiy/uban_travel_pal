@@ -86,6 +86,8 @@ Romantic trip
 'activities_f': ["Shopping", "Dine in restaurants"],
 }
 
+https://fxo.io/m/ya8x5nm9
+
 {{set_attribute_server_url.attributes__server_url}}/bot_users/
 
 {{upload_new_interaction_data_to_server.data__data__}}
@@ -100,7 +102,11 @@ user_response_email
 interaction_server_id
 
 
-flow
-===
-Additional Welcome Text
-I can help you come up with awesome experiences for your next travel. Click button below to get started.
+Ok in #{city}, your [activities are: xxxxx]
+Am I correct?
+
+
+The purpose(s) of your trip is/are: xxxxx
+Am I correct?
+
+

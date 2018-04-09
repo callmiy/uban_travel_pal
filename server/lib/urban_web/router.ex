@@ -20,9 +20,9 @@ defmodule UrbanWeb.Router do
       except: [:new, :edit]
     )
 
-    get("/validate_activities", ValidationController, :validate_activities)
-    get("/validate_purposes", ValidationController, :validate_purposes)
-    post("/validate_all", ValidationController, :validate_all)
+    post("/validate_activities", ValidationController, :validate_activities)
+    post("/validate_purposes", ValidationController, :validate_purposes)
+    post("/store_preferences", ValidationController, :store_preferences)
   end
 
   scope "/", UrbanWeb do
