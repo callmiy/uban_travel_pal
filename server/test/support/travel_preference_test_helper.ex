@@ -1,5 +1,6 @@
-defmodule Urban.TravelPreferenceTestHelper do
+defmodule Urban.TravelPrefTestHelper do
   import Urban.Factory
+  alias Urban.Utils
 
   @attrs [
     :activities,
@@ -8,8 +9,8 @@ defmodule Urban.TravelPreferenceTestHelper do
     :meet_locals,
     :plan_type,
     :purpose,
-    :tourist_attraction,
-    :bot_interaction
+    :tourist_attraction
+    # :bot_interaction
   ]
 
   def make_params(attrs \\ %{}) do
@@ -25,9 +26,7 @@ defmodule Urban.TravelPreferenceTestHelper do
     {params, interaction}
   end
 
-  def validate_attrs_equal(attrs, data_1, data_2) do
-    Enum.all?(attrs, fn attr ->
-      Map.get(data_1, attr) == Map.get(data_2, attr)
-    end)
+  def validate_attrs_equal(map1, map2) do
+    Utils.validate_keys_vals_equal(@attrs, map1, map2)
   end
 end

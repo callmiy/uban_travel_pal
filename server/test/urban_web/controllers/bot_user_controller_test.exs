@@ -1,7 +1,6 @@
 defmodule UrbanWeb.BotUserControllerTest do
   use UrbanWeb.ConnCase
 
-  alias Urban.BotUserApi
   alias Urban.BotUser
   alias Urban.BotUserTestHelper, as: Helper
 
@@ -18,13 +17,13 @@ defmodule UrbanWeb.BotUserControllerTest do
 
   describe "create bot_user" do
     test "renders bot_user when data is valid", %{conn: conn} do
-      valid_attrs = Helper.valid_attrs()
+      valid_attrs = Helper.make_bot_user()
 
       conn =
         post(
           conn,
           bot_user_path(conn, :create),
-          bot_user: Helper.valid_attrs()
+          bot_user: valid_attrs
         )
 
       assert %{"id" => id} = json_response(conn, 201)["data"]
@@ -44,7 +43,7 @@ defmodule UrbanWeb.BotUserControllerTest do
         post(
           conn,
           bot_user_path(conn, :create),
-          bot_user: Helper.invalid_attrs()
+          bot_user: Helper.make_bot_user(%{bot_user_id: nil})
         )
 
       assert json_response(conn, 422)["errors"] != %{}
@@ -58,25 +57,21 @@ defmodule UrbanWeb.BotUserControllerTest do
       conn: conn,
       bot_user: %BotUser{id: id} = bot_user
     } do
-      update_attrs = Helper.update_attrs()
-
       conn =
         put(
           conn,
           bot_user_path(conn, :update, bot_user),
-          bot_user: update_attrs
+          bot_user: %{bot_user_id: "updated bot user id"}
         )
 
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, bot_user_path(conn, :show, id))
 
-      assert json_response(conn, 200)["data"] == %{
-               "id" => id,
-               "email" => update_attrs.email,
-               "bot_user_id" => update_attrs.bot_user_id,
-               "user_response_name" => update_attrs.user_response_name
-             }
+      assert %{
+               "id" => ^id,
+               "bot_user_id" => "updated bot user id"
+             } = json_response(conn, 200)["data"]
     end
 
     test "renders errors when data is invalid", %{
@@ -87,7 +82,7 @@ defmodule UrbanWeb.BotUserControllerTest do
         put(
           conn,
           bot_user_path(conn, :update, bot_user),
-          bot_user: Helper.invalid_attrs()
+          bot_user: %{bot_user_id: nil}
         )
 
       assert json_response(conn, 422)["errors"] != %{}
@@ -108,7 +103,6 @@ defmodule UrbanWeb.BotUserControllerTest do
   end
 
   defp create_bot_user(_) do
-    {:ok, bot_user} = BotUserApi.create_bot_user(Helper.valid_attrs())
-    {:ok, bot_user: bot_user}
+    {:ok, bot_user: insert(:bot_user)}
   end
 end

@@ -1,16 +1,9 @@
 defmodule UrbanWeb.ValidationController do
   use UrbanWeb, :controller
-  require Logger
 
   alias Urban.Utils
 
   @unwanted ["Skip", "More options"]
-
-  @unregex_patterns_replacement [
-    {~r/"\s*\[/, "["},
-    {~r/\]"/, "]"},
-    {~r/\\/, ""}
-  ]
 
   @purpose_sing_plural [
     "the purpose of your trip is",
@@ -36,21 +29,6 @@ defmodule UrbanWeb.ValidationController do
 
   def validate_purposes(conn, %{"purposes" => purposes}) do
     validate(conn, purposes, :purposes, @purpose_sing_plural)
-  end
-
-  def store_preferences(conn, %{"preferences" => preferences}) do
-    data =
-      @unregex_patterns_replacement
-      |> Enum.reduce(Poison.encode!(preferences), fn {regex, replacement}, acc ->
-        Regex.replace(regex, acc, replacement, global: true)
-      end)
-      |> Poison.decode!()
-
-    render(
-      conn,
-      "validate.json",
-      responses: data
-    )
   end
 
   defp validate(conn, params, prefix, singular_plural) do

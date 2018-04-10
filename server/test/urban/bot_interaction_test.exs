@@ -4,87 +4,91 @@ defmodule Urban.BotInteractionTest do
   alias Urban.BotInteractionApi, as: Api
   alias Urban.BotInteraction
   alias Urban.BotInteractionHelper, as: Helper
+  alias Urban.Utils
 
   test "list_bot_interactions/0 returns all bot_interactions" do
-    {
-      :ok,
-      bot_interaction
-    } = Api.create_bot_interaction(Helper.valid_attrs())
+    {params, _user} = Helper.make_params()
+    {:ok, bot_int} = Api.create_bot_interaction(params)
+    [bot_int_] = Api.list_bot_interactions()
 
-    assert Api.list_bot_interactions() == [bot_interaction]
+    assert normalize_dt(bot_int_) == normalize_dt(bot_int)
   end
 
   test "get_bot_interaction!/1 returns the bot_interaction with given id" do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
-    assert Api.get_bot_interaction!(bot_interaction.id) == bot_interaction
+    {params, _user} = Helper.make_params()
+    {:ok, bot_int} = Api.create_bot_interaction(params)
+    bot_int_ = Api.get_bot_interaction!(bot_int.id)
+
+    assert normalize_dt(bot_int_) == normalize_dt(bot_int)
   end
 
   test "create_bot_interaction/1 with valid data creates a bot_interaction" do
-    valid_attrs = Helper.valid_attrs()
-    assert {:ok, %BotInteraction{} = bot_interaction} = Api.create_bot_interaction(valid_attrs)
+    {params, _user} = Helper.make_params()
 
-    assert bot_interaction.bot_connection_id == valid_attrs.bot_connection_id
-    assert bot_interaction.bot_id == valid_attrs.bot_id
-    assert bot_interaction.bot_name == valid_attrs.bot_name
-    assert bot_interaction.bot_platform == valid_attrs.bot_platform
-    assert bot_interaction.channel_id == valid_attrs.channel_id
-    assert bot_interaction.datetime == valid_attrs.datetime
-    assert bot_interaction.message == valid_attrs.message
-    assert bot_interaction.message_type == valid_attrs.message_type
-    assert bot_interaction.metadata == valid_attrs.metadata
-    assert bot_interaction.response_path == valid_attrs.response_path
+    assert {
+             :ok,
+             %BotInteraction{} = bot_int
+           } = Api.create_bot_interaction(params)
+
+    assert Helper.validate_attrs_equal(params, Map.from_struct(bot_int))
   end
 
   test "create_bot_interaction/1 with invalid data returns error changeset" do
+    {invalid_attrs, _user} = Helper.make_params(%{bot_platform: nil})
+
     assert {
              :error,
              %Ecto.Changeset{}
-           } = Api.create_bot_interaction(Helper.invalid_attrs())
+           } = Api.create_bot_interaction(invalid_attrs)
   end
 
   test "update_bot_interaction/2 with valid data updates the bot_interaction" do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
-    update_attrs = Helper.update_attrs()
+    {params, _user} = Helper.make_params()
+    {:ok, bot_int} = Api.create_bot_interaction(params)
 
-    assert {:ok, bot_interaction} =
-             Api.update_bot_interaction(
-               bot_interaction,
-               update_attrs
-             )
+    assert {
+             :ok,
+             %BotInteraction{bot_name: "updated bot name"} = bot_int_
+           } =
+             Api.update_bot_interaction(bot_int, %{
+               bot_name: "updated bot name"
+             })
 
-    assert %BotInteraction{} = bot_interaction
-    assert bot_interaction.bot_connection_id == update_attrs.bot_connection_id
-    assert bot_interaction.bot_id == update_attrs.bot_id
-    assert bot_interaction.bot_name == update_attrs.bot_name
-    assert bot_interaction.bot_platform == update_attrs.bot_platform
-    assert bot_interaction.channel_id == update_attrs.channel_id
-    assert bot_interaction.datetime == update_attrs.datetime
-    assert bot_interaction.message == update_attrs.message
-    assert bot_interaction.message_type == update_attrs.message_type
-    assert bot_interaction.metadata == update_attrs.metadata
-    assert bot_interaction.response_path == update_attrs.response_path
+    refute bot_int_.bot_name == bot_int.bot_name
   end
 
   test "update_bot_interaction/2 with invalid data returns error changeset" do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
+    {params, _user} = Helper.make_params()
 
-    assert {:error, %Ecto.Changeset{}} =
-             Api.update_bot_interaction(bot_interaction, Helper.invalid_attrs())
+    {:ok, bot_int} = Api.create_bot_interaction(params)
 
-    assert bot_interaction == Api.get_bot_interaction!(bot_interaction.id)
+    assert {
+             :error,
+             %Ecto.Changeset{}
+           } = Api.update_bot_interaction(bot_int, %{bot_platform: nil})
+
+    bot_int_ = Api.get_bot_interaction!(bot_int.id)
+    bot_int1 = normalize_dt(bot_int)
+    bot_int2 = normalize_dt(bot_int_)
+    assert bot_int1 == bot_int2
   end
 
   test "delete_bot_interaction/1 deletes the bot_interaction" do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
-    assert {:ok, %BotInteraction{}} = Api.delete_bot_interaction(bot_interaction)
+    bot_int = insert(:bot_int)
+
+    assert {:ok, %BotInteraction{}} = Api.delete_bot_interaction(bot_int)
 
     assert_raise Ecto.NoResultsError, fn ->
-      Api.get_bot_interaction!(bot_interaction.id)
+      Api.get_bot_interaction!(bot_int.id)
     end
   end
 
   test "change_bot_interaction/1 returns a bot_interaction changeset" do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
-    assert %Ecto.Changeset{} = Api.change_bot_interaction(bot_interaction)
+    bot_int = insert(:bot_int)
+    assert %Ecto.Changeset{} = Api.change_bot_interaction(bot_int)
+  end
+
+  defp normalize_dt(%BotInteraction{datetime: dt} = bot_int) do
+    %{bot_int | datetime: Utils.normalize_time(dt)}
   end
 end

@@ -1,115 +1,45 @@
 defmodule Urban.BotInteractionHelper do
-  alias Urban.BotUserTestHelper
-  alias Urban.BotUserApi
-  alias Urban.{BotUser, BotInteraction}
-  alias Urban.BotInteractionApi, as: Api
+  import Urban.Factory
 
-  @now Timex.now()
+  alias Urban.Utils
 
-  @metadata %{
-    "firstTimeUser" => true,
-    "browserName" => "Chrome Mobile",
-    "browserVersion" => "65.0.3325.181",
-    "operatingSystem" => "Android",
-    "operatingSystemVersion" => "5.0",
-    "deviceProduct" => "Galaxy S5",
-    "mobile" => true
-  }
+  @attrs [
+    :bot_connection_id,
+    :bot_id,
+    :bot_name,
+    :bot_platform,
+    :channel_id,
+    :datetime,
+    :message,
+    :message_type,
+    :metadata,
+    :response_path
+  ]
 
-  def create_bot_interaction(attrs \\ %{}) do
-    {:ok, %BotInteraction{} = interaction} =
-      attrs
-      |> Enum.into(valid_attrs())
-      |> Api.create_bot_interaction()
+  def make_params(attrs \\ %{}) do
+    user = insert(:bot_user)
 
-    interaction
+    params =
+      :bot_int
+      |> build(Enum.into(%{bot_user_id: user.id}, attrs))
+      |> Map.from_struct()
+
+    {params, user}
   end
 
-  def create_bot_user do
-    {
-      :ok,
-      bot_user
-    } = BotUserApi.create_bot_user(BotUserTestHelper.valid_attrs())
-
-    bot_user
+  @doc """
+  We construct a factory for bot interaction such that we assign a key
+  :user_id which corresponds to :bot_user_id of Urban.BotUser. Thw key
+  user_id is what the frontend chatting platform uses
+  """
+  def make_params_chat_platform_bot_user(bot_user_id, attrs \\ %{}) do
+    :bot_int
+    |> build(attrs)
+    |> Map.from_struct()
+    |> Map.put(:user_id, bot_user_id)
   end
 
-  def valid_attrs do
-    %BotUser{id: bot_user_id} = create_bot_user()
-
-    %{
-      bot_connection_id: "some bot_connection_id",
-      bot_id: "some bot_id",
-      bot_name: "some bot_name",
-      bot_platform: "some bot_platform",
-      channel_id: "some channel_id",
-      datetime: @now,
-      message: "some message",
-      message_type: "some message_type",
-      metadata: @metadata,
-      response_path: "some response_path",
-      bot_user_id: bot_user_id
-    }
-  end
-
-  def valid_attrs_no_user do
-    %{
-      bot_connection_id: "some bot_connection_id",
-      bot_id: "some bot_id",
-      bot_name: "some bot_name",
-      bot_platform: "some bot_platform",
-      channel_id: "some channel_id",
-      datetime: @now,
-      message: "some message",
-      message_type: "some message_type",
-      metadata: @metadata,
-      response_path: "some response_path"
-    }
-  end
-
-  def update_attrs do
-    %{
-      bot_connection_id: "some updated bot_connection_id",
-      bot_id: "some updated bot_id",
-      bot_name: "some updated bot_name",
-      bot_platform: "some updated bot_platform",
-      channel_id: "some updated channel_id",
-      datetime: Timex.shift(@now, hours: 5),
-      message: "some updated message",
-      message_type: "some updated message_type",
-      metadata: @metadata,
-      response_path: "some updated response_path"
-    }
-  end
-
-  def invalid_attrs do
-    %{
-      bot_connection_id: nil,
-      bot_id: nil,
-      bot_name: nil,
-      bot_platform: nil,
-      channel_id: nil,
-      datetime: nil,
-      message: nil,
-      message_type: nil,
-      metadata: nil,
-      response_path: nil
-    }
-  end
-
-  def invalid_attrs_with_valid_user_id do
-    %{
-      bot_connection_id: nil,
-      bot_id: nil,
-      bot_name: nil,
-      bot_platform: nil,
-      channel_id: nil,
-      datetime: nil,
-      message: nil,
-      message_type: nil,
-      metadata: nil,
-      response_path: nil,
-      user_id: "new bot user id"
-    }
+  def validate_attrs_equal(map1, map2) do
+    Utils.validate_keys_vals_equal(@attrs, map1, map2)
   end
 end

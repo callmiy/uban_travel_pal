@@ -1,8 +1,8 @@
-defmodule Urban.Repo.Migrations.CreateTravelPreferences do
+defmodule Urban.Repo.Migrations.CreateTravelPrefs do
   use Ecto.Migration
 
   def change do
-    create table(:travel_preferences) do
+    create table(:travel_prefs) do
       add(:tourist_attraction, :boolean, null: false)
       add(:purpose, {:array, :string}, null: false)
       add(:plan_type, :string, null: false)
@@ -20,6 +20,6 @@ defmodule Urban.Repo.Migrations.CreateTravelPreferences do
       timestamps()
     end
 
-    create(index(:travel_preferences, [:bot_interaction_id]))
+    create(index(:travel_prefs, [:bot_interaction_id]))
   end
 end

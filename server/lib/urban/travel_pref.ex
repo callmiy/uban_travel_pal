@@ -1,4 +1,4 @@
-defmodule Urban.TravelPreference do
+defmodule Urban.TravelPref do
   use Ecto.Schema
   import Ecto.Changeset
   alias Urban.BotInteraction
@@ -8,7 +8,7 @@ defmodule Urban.TravelPreference do
     autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
   ]
 
-  schema "travel_preferences" do
+  schema "travel_prefs" do
     field(:city, :string)
     field(:budget, :string)
     field(:purpose, {:array, :string})
@@ -22,8 +22,8 @@ defmodule Urban.TravelPreference do
   end
 
   @doc false
-  def changeset(travel_preference, attrs) do
-    travel_preference
+  def changeset(travel_pref, attrs) do
+    travel_pref
     |> cast(attrs, [
       :tourist_attraction,
       :purpose,

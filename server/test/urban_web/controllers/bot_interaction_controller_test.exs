@@ -1,12 +1,9 @@
 defmodule UrbanWeb.BotInteractionControllerTest do
   use UrbanWeb.ConnCase
 
-  alias Urban.BotInteractionApi, as: Api
   alias Urban.BotInteraction
   alias Urban.BotInteractionHelper, as: Helper
   alias Urban.BotUser
-
-  @basic_formatter "{ISO:Extended:Z}"
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -28,20 +25,15 @@ defmodule UrbanWeb.BotInteractionControllerTest do
         bot_user_id: bot_user_id,
         user_response_name: user_response_name,
         email: email
-      } = Helper.create_bot_user()
+      } = insert(:bot_user)
 
-      valid_attrs_no_user =
-        Map.put(
-          Helper.valid_attrs_no_user(),
-          :user_id,
-          bot_user_id
-        )
+      attrs = Helper.make_params_chat_platform_bot_user(bot_user_id)
 
       conn =
         post(
           conn,
           bot_interaction_path(conn, :create),
-          bot_interaction: valid_attrs_no_user
+          bot_interaction: attrs
         )
 
       assert %{
@@ -57,13 +49,7 @@ defmodule UrbanWeb.BotInteractionControllerTest do
       conn: conn
     } do
       bot_user_id = "1234567"
-
-      attrs =
-        Map.put(
-          Helper.valid_attrs_no_user(),
-          :user_id,
-          bot_user_id
-        )
+      attrs = Helper.make_params_chat_platform_bot_user(bot_user_id)
 
       conn =
         post(
@@ -79,12 +65,7 @@ defmodule UrbanWeb.BotInteractionControllerTest do
     end
 
     test "renders errors due to invalid bot user data", %{conn: conn} do
-      attrs =
-        Map.put(
-          Helper.invalid_attrs_with_valid_user_id(),
-          :user_id,
-          nil
-        )
+      attrs = Helper.make_params_chat_platform_bot_user(nil)
 
       conn =
         post(
@@ -97,11 +78,13 @@ defmodule UrbanWeb.BotInteractionControllerTest do
     end
 
     test "renders errors due to invalid interaction data", %{conn: conn} do
+      attrs = Helper.make_params_chat_platform_bot_user("xyz", %{bot_name: nil})
+
       conn =
         post(
           conn,
           bot_interaction_path(conn, :create),
-          bot_interaction: Helper.invalid_attrs_with_valid_user_id()
+          bot_interaction: attrs
         )
 
       assert json_response(conn, 422)["errors"] != %{}
@@ -109,50 +92,35 @@ defmodule UrbanWeb.BotInteractionControllerTest do
   end
 
   describe "update bot_interaction" do
-    setup [:create_bot_interaction]
+    setup [:create_]
 
     test "renders bot_interaction when data is valid", %{
       conn: conn,
-      bot_interaction: %BotInteraction{id: id} = bot_interaction
+      bot_int: %BotInteraction{id: id} = bot_int
     } do
-      update_attrs = Helper.update_attrs()
-
       conn =
         put(
           conn,
-          bot_interaction_path(conn, :update, bot_interaction),
-          bot_interaction: update_attrs
+          bot_interaction_path(conn, :update, bot_int),
+          bot_interaction: %{bot_platform: "yoyo"}
         )
 
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, bot_interaction_path(conn, :show, id))
 
-      assert json_response(conn, 200)["data"] == %{
-               "id" => id,
-               "bot_connection_id" => update_attrs.bot_connection_id,
-               "bot_id" => update_attrs.bot_id,
-               "bot_name" => update_attrs.bot_name,
-               "bot_platform" => update_attrs.bot_platform,
-               "channel_id" => update_attrs.channel_id,
-               "datetime" =>
-                 Timex.format!(
-                   update_attrs.datetime,
-                   @basic_formatter
-                 ),
-               "message" => update_attrs.message,
-               "message_type" => update_attrs.message_type,
-               "metadata" => update_attrs.metadata,
-               "response_path" => update_attrs.response_path
-             }
+      assert %{
+               "id" => ^id,
+               "bot_platform" => "yoyo"
+             } = json_response(conn, 200)["data"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn, bot_interaction: bot_interaction} do
+    test "renders errors when data is invalid", %{conn: conn, bot_int: bot_int} do
       conn =
         put(
           conn,
-          bot_interaction_path(conn, :update, bot_interaction),
-          bot_interaction: Helper.invalid_attrs()
+          bot_interaction_path(conn, :update, bot_int),
+          bot_interaction: %{bot_platform: nil}
         )
 
       assert json_response(conn, 422)["errors"] != %{}
@@ -160,20 +128,19 @@ defmodule UrbanWeb.BotInteractionControllerTest do
   end
 
   describe "delete bot_interaction" do
-    setup [:create_bot_interaction]
+    setup [:create_]
 
-    test "deletes chosen bot_interaction", %{conn: conn, bot_interaction: bot_interaction} do
-      conn = delete(conn, bot_interaction_path(conn, :delete, bot_interaction))
+    test "deletes chosen bot_interaction", %{conn: conn, bot_int: bot_int} do
+      conn = delete(conn, bot_interaction_path(conn, :delete, bot_int))
       assert response(conn, 204)
 
       assert_error_sent(404, fn ->
-        get(conn, bot_interaction_path(conn, :show, bot_interaction))
+        get(conn, bot_interaction_path(conn, :show, bot_int))
       end)
     end
   end
 
-  defp create_bot_interaction(_) do
-    {:ok, bot_interaction} = Api.create_bot_interaction(Helper.valid_attrs())
-    {:ok, bot_interaction: bot_interaction}
+  defp create_(_) do
+    {:ok, bot_int: insert(:bot_int)}
   end
 end

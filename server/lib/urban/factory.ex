@@ -1,7 +1,7 @@
 defmodule Urban.Factory do
   use ExMachina.Ecto, repo: Urban.Repo
 
-  alias Urban.{TravelPreference, BotInteraction, BotUser}
+  alias Urban.{TravelPref, BotInteraction, BotUser}
 
   @now Timex.now()
 
@@ -16,7 +16,7 @@ defmodule Urban.Factory do
   }
 
   def travel_pref_factory do
-    %TravelPreference{
+    %TravelPref{
       activities: [sequence("activity")],
       budget: sequence("budget"),
       city: sequence("city"),
@@ -46,9 +46,9 @@ defmodule Urban.Factory do
 
   def bot_user_factory do
     %BotUser{
-      email: "me@bot_user.com",
-      bot_user_id: "some bot_user_id",
-      user_response_name: "some user_response_name"
+      email: sequence("me@bot_user.com"),
+      bot_user_id: sequence("some bot_user_id"),
+      user_response_name: sequence("some user_response_name")
     }
   end
 end

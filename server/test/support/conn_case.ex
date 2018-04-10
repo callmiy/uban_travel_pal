@@ -20,19 +20,20 @@ defmodule UrbanWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import UrbanWeb.Router.Helpers
+      import Urban.Factory
 
       # The default endpoint for testing
       @endpoint UrbanWeb.Endpoint
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Urban.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Urban.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end
