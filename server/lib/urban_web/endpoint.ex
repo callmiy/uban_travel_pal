@@ -5,7 +5,7 @@ defmodule UrbanWeb.Endpoint do
 
   plug(
     Plug.Static,
-    at: "/plan-assets",
+    at: "/api/plan-assets",
     gzip: false,
     from: "plan-assets"
   )

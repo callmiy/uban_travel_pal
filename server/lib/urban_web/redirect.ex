@@ -1,14 +1,12 @@
 defmodule UrbanWeb.Redictor do
-  @served_path ~w(api plan-assets)
+  @server_path "api"
 
   def init(opts) do
     opts
   end
 
   def call(conn, _opts) do
-    [path_info | _] = conn.path_info
-
-    if Enum.member?(@served_path, path_info) do
+    if List.first(conn.path_info) == @server_path do
       conn
     else
       conn
