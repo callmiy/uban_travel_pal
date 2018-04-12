@@ -3,7 +3,12 @@ defmodule UrbanWeb.Endpoint do
 
   socket("/socket", UrbanWeb.UserSocket)
 
-  # plug(Plug.Static.IndexHtml, at: "/index")
+  plug(
+    Plug.Static,
+    at: "/plan-assets",
+    gzip: false,
+    from: "plan-assets"
+  )
 
   # Serve at "/" the static files from "priv/static" directory.
   #

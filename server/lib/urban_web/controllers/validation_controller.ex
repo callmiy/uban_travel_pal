@@ -3,7 +3,7 @@ defmodule UrbanWeb.ValidationController do
 
   alias Urban.Utils
 
-  @unwanted ["Skip", "More options"]
+  @unwanted ["Skip", "More options", "Other"]
 
   @purpose_sing_plural [
     "the purpose of your trip is",

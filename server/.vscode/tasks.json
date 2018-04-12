@@ -37,6 +37,13 @@
       "group": "test"
     },
     {
+      "label": "mix test file unit trace",
+      "type": "shell",
+      "command": "mix test ${file} --trace",
+      "problemMatcher": ["$mixCompileError", "$mixCompileWarning"],
+      "group": "test"
+    },
+    {
       "label": "mix test unit deb",
       "type": "shell",
       "command": "mix test",

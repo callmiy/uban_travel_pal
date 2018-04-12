@@ -53,7 +53,8 @@ defmodule Urban.Mixfile do
       {:slugger, "~> 0.2"},
       {:phoenix_html, "~> 2.11"},
       {:corsica, "~> 1.1"},
-      {:ex_machina, "~> 2.2"}
+      {:ex_machina, "~> 2.2"},
+      {:elixlsx, "~> 0.4.0"}
     ]
   end
 
