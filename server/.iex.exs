@@ -8,3 +8,6 @@ alias Urban.Utils
 alias Urban.BotUserApi
 alias Urban.BotInteractionApi
 alias Urban.TravelPrefApi
+alias Urban.Attachment
+alias Urban.Itinerary
+alias Urban.ItineraryApi

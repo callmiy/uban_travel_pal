@@ -31,7 +31,7 @@ defmodule Urban.BotUser do
   end
 
   @doc false
-  def changeset(bot_user, attrs) do
+  def changeset(bot_user, attrs \\ %{}) do
     bot_user
     |> cast(attrs, [:bot_user_id, :user_response_name, :email])
     |> validate_required([:bot_user_id])

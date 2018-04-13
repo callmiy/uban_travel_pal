@@ -56,7 +56,10 @@ defmodule Urban.Mixfile do
       {:ex_machina, "~> 2.2"},
       {:elixlsx, "~> 0.4.0"},
       {:ex_admin, github: "smpallen99/ex_admin"},
-      {:ecto_autoslug_field, "~> 0.4.0"}
+      {:ecto_autoslug_field, "~> 0.4.0"},
+      {:arc, "~> 0.8.0"},
+      {:arc_ecto, "~> 0.7.0"},
+      {:arc_gcs, "~> 0.0.7"}
     ]
   end
 
