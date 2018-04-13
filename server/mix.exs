@@ -37,7 +37,7 @@ defmodule Urban.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.13.1"},
       {:cowboy, "~> 1.0"},
       {:plug_static_index_html, "~> 1.0"},
       {:timex, "~> 3.2"},
@@ -54,7 +54,8 @@ defmodule Urban.Mixfile do
       {:phoenix_html, "~> 2.11"},
       {:corsica, "~> 1.1"},
       {:ex_machina, "~> 2.2"},
-      {:elixlsx, "~> 0.4.0"}
+      {:elixlsx, "~> 0.4.0"},
+      {:ex_admin, github: "smpallen99/ex_admin"}
     ]
   end
 

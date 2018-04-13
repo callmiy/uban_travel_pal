@@ -15,6 +15,12 @@ defmodule Urban.BotUser do
     autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
   ]
 
+  @attributes [
+    :email,
+    :bot_user_id,
+    :user_response_name
+  ]
+
   schema "bot_users" do
     field(:email, :string)
     field(:bot_user_id, :string)
@@ -35,5 +41,9 @@ defmodule Urban.BotUser do
       name: :bot_users_bot_user_id_email_index
     )
     |> validate_format(:email, ~r/@/)
+  end
+
+  def attributes do
+    @attributes
   end
 end

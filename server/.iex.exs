@@ -1,2 +1,10 @@
 alias UrbanWeb.ValidationController
 alias Urban.Factory
+alias Urban.Repo
+alias Urban.BotInteraction
+alias Urban.BotUser
+alias Urban.TravelPref
+alias Urban.Utils
+alias Urban.BotUserApi
+alias Urban.BotInteractionApi
+alias Urban.TravelPrefApi

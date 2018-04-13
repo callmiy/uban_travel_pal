@@ -19,7 +19,18 @@ defmodule UrbanWeb.Endpoint do
     at: "/",
     gzip: false,
     from: "web-client",
-    only_matching: ~w(index favicon manifest robots.txt static service)
+    only_matching: ~w(
+      index
+      favicon
+      manifest
+      robots.txt
+      static
+      service
+      css
+      js
+      fonts
+      images
+    )
   )
 
   # Code reloading can be explicitly enabled under the

@@ -66,7 +66,7 @@ defmodule Urban.BotInteraction do
     ])
     |> assoc_constraint(:bot_user)
     |> validate_change(:metadata, fn _, metadata ->
-      if @metadata_keys |> Enum.all?(&Map.has_key?(metadata, &1)) do
+      if Enum.all?(@metadata_keys, &Map.has_key?(metadata, &1)) do
         []
       else
         [metadata: "Required keys missing"]
