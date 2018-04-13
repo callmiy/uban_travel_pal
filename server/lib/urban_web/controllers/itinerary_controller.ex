@@ -7,36 +7,36 @@ defmodule UrbanWeb.ItineraryController do
   action_fallback(UrbanWeb.FallbackController)
 
   def index(conn, _params) do
-    itinerarys = Api.list_itinerarys()
+    itinerarys = Api.list()
     render(conn, "index.json", itinerarys: itinerarys)
   end
 
-  def create(conn, %{"itinerary" => itinerary_params}) do
-    with {:ok, %Itinerary{} = itinerary} <- Api.create_itinerary(itinerary_params) do
+  def create(conn, %{"it" => params}) do
+    with {:ok, %Itinerary{} = it} <- Api.create_it(params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", itinerary_path(conn, :show, itinerary))
-      |> render("show.json", itinerary: itinerary)
+      |> put_resp_header("location", itinerary_path(conn, :show, it))
+      |> render("show.json", itinerary: it)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    itinerary = Api.get_itinerary!(id)
+    itinerary = Api.get!(id)
     render(conn, "show.json", itinerary: itinerary)
   end
 
-  def update(conn, %{"id" => id, "itinerary" => itinerary_params}) do
-    itinerary = Api.get_itinerary!(id)
+  def update(conn, %{"id" => id, "it" => params}) do
+    it = Api.get!(id)
 
-    with {:ok, %Itinerary{} = itinerary} <- Api.update_itinerary(itinerary, itinerary_params) do
-      render(conn, "show.json", itinerary: itinerary)
+    with {:ok, %Itinerary{} = it} <- Api.update_it(it, params) do
+      render(conn, "show.json", itinerary: it)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    itinerary = Api.get_itinerary!(id)
+    itinerary = Api.get!(id)
 
-    with {:ok, %Itinerary{}} <- Api.delete_itinerary(itinerary) do
+    with {:ok, %Itinerary{}} <- Api.delete_it(itinerary) do
       send_resp(conn, :no_content, "")
     end
   end

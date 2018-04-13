@@ -1,7 +1,10 @@
 defmodule Urban.Factory do
   use ExMachina.Ecto, repo: Urban.Repo
 
-  alias Urban.{TravelPref, BotInteraction, BotUser}
+  alias Urban.TravelPref
+  alias Urban.BotInteraction
+  alias Urban.BotUser
+  alias Urban.Itinerary
 
   @now Timex.now()
 
@@ -49,6 +52,17 @@ defmodule Urban.Factory do
       email: sequence("me@bot_user.com"),
       bot_user_id: sequence("some bot_user_id"),
       user_response_name: sequence("some user_response_name")
+    }
+  end
+
+  def itinerary_factory do
+    seq = sequence("")
+    path = "../server/test/uploads/beans.png"
+
+    %Itinerary{
+      title: "Itinerary title #{seq}",
+      description: "Itinerary description #{seq}",
+      image: path
     }
   end
 end

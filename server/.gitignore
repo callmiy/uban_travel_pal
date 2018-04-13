@@ -16,3 +16,7 @@ erl_crash.dump
 /config/*.secret.exs
 /.elixir_ls
 1523607878357
+
+
+# upload folder
+/api/uploads

@@ -31,11 +31,7 @@ config :ex_admin,
     UrbanWeb.ExAdmin.Itinerary
   ]
 
-config :arc,
-  # or Arc.Storage.Local
-  storage: Arc.Storage.GCS,
-  bucket: "urban-travel-plans"
-
+config :arc, storage: Arc.Storage.Local
 config :goth, json: Path.expand("../server/1523607878357") |> File.read!()
 
 # Import environment specific config. This must remain at the bottom

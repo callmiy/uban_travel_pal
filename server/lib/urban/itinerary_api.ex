@@ -7,6 +7,7 @@ defmodule Urban.ItineraryApi do
   alias Urban.Repo
 
   alias Urban.Itinerary
+  alias Urban.Attachment
 
   @doc """
   Returns the list of itinerarys.
@@ -17,7 +18,7 @@ defmodule Urban.ItineraryApi do
       [%Itinerary{}, ...]
 
   """
-  def list_itinerarys do
+  def list do
     Repo.all(Itinerary)
   end
 
@@ -28,28 +29,47 @@ defmodule Urban.ItineraryApi do
 
   ## Examples
 
-      iex> get_itinerary!(123)
+      iex> get!(123)
       %Itinerary{}
 
-      iex> get_itinerary!(456)
+      iex> get!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_itinerary!(id), do: Repo.get!(Itinerary, id)
+  def get!(id), do: Repo.get!(Itinerary, id)
 
   @doc """
   Creates a itinerary.
 
   ## Examples
 
-      iex> create_itinerary(%{field: value})
+      iex> create_it(%{field: value})
       {:ok, %Itinerary{}}
 
-      iex> create_itinerary(%{field: bad_value})
+      iex> create_it(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_itinerary(attrs \\ %{}) do
+
+  def create_it(%{image: image} = attrs) do
+    {:ok, image_base} = Attachment.store({image, %Itinerary{}})
+
+    updated_at =
+      Timex.now()
+      |> Timex.format!("{ISO:Extended:Z}")
+      |> Ecto.DateTime.cast!()
+
+    image = %{
+      file_name: image_base,
+      updated_at: updated_at
+    }
+
+    :itinerary
+    |> Urban.Factory.build(%{attrs | image: image})
+    |> Repo.insert()
+  end
+
+  def create(attrs \\ %{}) do
     %Itinerary{}
     |> Itinerary.changeset(attrs)
     |> Repo.insert()
@@ -60,14 +80,14 @@ defmodule Urban.ItineraryApi do
 
   ## Examples
 
-      iex> update_itinerary(itinerary, %{field: new_value})
+      iex> update_it(itinerary, %{field: new_value})
       {:ok, %Itinerary{}}
 
-      iex> update_itinerary(itinerary, %{field: bad_value})
+      iex> update_it(itinerary, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_itinerary(%Itinerary{} = itinerary, attrs) do
+  def update_it(%Itinerary{} = itinerary, attrs) do
     itinerary
     |> Itinerary.changeset(attrs)
     |> Repo.update()
@@ -78,14 +98,14 @@ defmodule Urban.ItineraryApi do
 
   ## Examples
 
-      iex> delete_itinerary(itinerary)
+      iex> delete_it(itinerary)
       {:ok, %Itinerary{}}
 
-      iex> delete_itinerary(itinerary)
+      iex> delete_it(itinerary)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_itinerary(%Itinerary{} = itinerary) do
+  def delete_it(%Itinerary{} = itinerary) do
     Repo.delete(itinerary)
   end
 
@@ -94,11 +114,19 @@ defmodule Urban.ItineraryApi do
 
   ## Examples
 
-      iex> change_itinerary(itinerary)
+      iex> change_it(itinerary)
       %Ecto.Changeset{source: %Itinerary{}}
 
   """
-  def change_itinerary(%Itinerary{} = itinerary) do
+  def change_it(%Itinerary{} = itinerary) do
     Itinerary.changeset(itinerary, %{})
+  end
+
+  def required_params do
+    [
+      :title,
+      :description,
+      :image
+    ]
   end
 end

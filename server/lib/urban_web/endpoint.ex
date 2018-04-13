@@ -5,9 +5,9 @@ defmodule UrbanWeb.Endpoint do
 
   plug(
     Plug.Static,
-    at: "/api/plan-assets",
+    at: "/api/uploads",
     gzip: false,
-    from: "plan-assets"
+    from: "api/uploads"
   )
 
   # Serve at "/" the static files from "priv/static" directory.

@@ -37,6 +37,10 @@ config :urban, Urban.Repo,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :arc,
+  storage: Arc.Storage.GCS,
+  bucket: "urban-travel-plans"
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

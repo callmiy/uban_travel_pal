@@ -1,3 +1,3 @@
 {:ok, _} = Application.ensure_all_started(:ex_machina)
-ExUnit.start()
+ExUnit.start(exclude: [norun: true])
 Ecto.Adapters.SQL.Sandbox.mode(Urban.Repo, :manual)
