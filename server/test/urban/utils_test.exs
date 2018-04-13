@@ -1,6 +1,8 @@
 defmodule Urban.UtilsTest do
-  use ExUnit.Case, async: true
+  use Urban.DataCase
   import Urban.Utils
+
+  alias Urban.Repo
 
   test "list_comma_separated_with_and/1 succeeds for empty list" do
     assert "" == list_comma_separated_with_and([])
@@ -21,5 +23,23 @@ defmodule Urban.UtilsTest do
                "yoo",
                "yah"
              ])
+  end
+
+  test "ecto_schema_to_map/1 succeeds when struct has no loaded associations" do
+    bot_user = insert(:bot_user)
+    bot_user_map = ecto_schema_to_map(bot_user)
+
+    assert bot_user.id == bot_user_map.id
+    refute Map.has_key?(bot_user_map, :__meta__)
+    refute Map.has_key?(bot_user_map, :bot_interactions)
+  end
+
+  test "ecto_schema_to_map/1 succeeds when struct has loaded associations" do
+    bot_user = insert(:bot_user) |> Repo.preload([:bot_interactions])
+    bot_user_map = ecto_schema_to_map(bot_user)
+
+    assert bot_user.id == bot_user_map.id
+    refute Map.has_key?(bot_user_map, :__meta__)
+    assert Map.has_key?(bot_user_map, :bot_interactions)
   end
 end

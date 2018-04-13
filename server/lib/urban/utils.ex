@@ -80,4 +80,23 @@ defmodule Urban.Utils do
       end
     end
   end
+
+  @doc """
+  Turn an ecto schema into a simple map, essentially remove the __meta__
+  and any unloaded association keys
+  """
+
+  @spec ecto_schema_to_map(obj :: Map.t()) :: Map.t()
+  def ecto_schema_to_map(%{__meta__: _} = obj) do
+    obj
+    |> Map.from_struct()
+    |> Enum.filter(fn {k, v} ->
+      case {k, v} do
+        {:__meta__, _} -> false
+        {_, %Ecto.Association.NotLoaded{}} -> false
+        _ -> true
+      end
+    end)
+    |> Map.new()
+  end
 end

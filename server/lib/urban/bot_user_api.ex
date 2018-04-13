@@ -121,20 +121,4 @@ defmodule Urban.BotUserApi do
   def change_bot_user(%BotUser{} = bot_user) do
     BotUser.changeset(bot_user, %{})
   end
-
-  @doc """
-  Returns a map representaion of the BotUser struct in a form suitable for
-  encoding by the Poison module
-  """
-  def to_encodable_map(%BotUser{bot_interactions: %Ecto.Association.NotLoaded{}} = bot_user) do
-    bot_user
-    |> to_encodable_map()
-    |> Map.delete(:bot_interactions)
-  end
-
-  def to_encodable_map(%BotUser{} = bot_user) do
-    bot_user
-    |> Map.from_struct()
-    |> Map.drop([:__meta__, :bot_interactions])
-  end
 end

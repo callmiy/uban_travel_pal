@@ -88,10 +88,4 @@ defmodule Urban.BotUserTest do
   test "change_bot_user/1 returns a bot_user changeset" do
     assert %Ecto.Changeset{} = Api.change_bot_user(insert(:bot_user))
   end
-
-  test "to_encodable_map/1 succeeds when related bot interactions not loaded" do
-    bot_user = insert(:bot_user)
-    bot_user_map = Api.to_encodable_map(bot_user)
-    assert Helper.validate_attrs_equal(bot_user, bot_user_map)
-  end
 end

@@ -55,7 +55,8 @@ defmodule Urban.Mixfile do
       {:corsica, "~> 1.1"},
       {:ex_machina, "~> 2.2"},
       {:elixlsx, "~> 0.4.0"},
-      {:ex_admin, github: "smpallen99/ex_admin"}
+      {:ex_admin, github: "smpallen99/ex_admin"},
+      {:ecto_autoslug_field, "~> 0.4.0"}
     ]
   end
 
