@@ -32,7 +32,7 @@ config :ex_admin,
   ]
 
 config :arc, storage: Arc.Storage.Local
-config :goth, json: Path.expand("../server/1523607878357") |> File.read!()
+config :goth, json: "/1523607878357"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
