@@ -23,7 +23,8 @@
       "command": "pg_ctl start && iex -S mix phx.server",
       "options": {
         "env": {
-          "URBAN_PHOENIX_PORT": "4015"
+          "URBAN_PHOENIX_PORT": "4015",
+          "GCP_JSON_CREDENTIALS": ""
         }
       },
       "problemMatcher": ["$mixCompileError", "$mixCompileWarning"],
