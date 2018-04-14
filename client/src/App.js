@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import Carousel from 'react-slick';
+import React, { Component } from "react";
+import Carousel from "react-slick";
 
-import slide1 from './images/slide1.jpg';
-import slide2 from './images/slide2.jpg';
-import slide3 from './images/slide3.jpeg';
-import cuisineImg from './images/cuisine.webp';
-import localExpImg from './images/local-experience.webp';
-import urbanBeachImg from './images/urban-beach-hol.webp';
-import ShortForm from './components/questions-form.component';
-import classes from './app.styles';
-import FormSubmittedSignUp from './components/form-submitted-signup.component';
+import slide1 from "./images/slide1.jpg";
+import slide2 from "./images/slide2.jpg";
+import slide3 from "./images/slide3.jpeg";
+import cuisineImg from "./images/cuisine.webp";
+import localExpImg from "./images/local-experience.webp";
+import urbanBeachImg from "./images/urban-beach-hol.webp";
+import ShortForm from "./components/questions-form.component";
+import classes from "./app.styles";
+import FormSubmittedSignUp from "./components/form-submitted-signup.component";
 
 class App extends Component {
   state = {
@@ -29,8 +29,8 @@ class App extends Component {
     };
 
     const questionSectionPrompt = this.state.formSubmitted
-      ? 'Plan your next weekend trip in few clicks'
-      : 'Lets give you an awesome experience. Tell us a little about trip';
+      ? "Plan your next weekend trip in few clicks"
+      : "Lets give you an awesome experience. Tell us a little about trip!";
 
     return (
       <div className={`${classes.appRoot}`}>
