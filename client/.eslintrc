@@ -26,6 +26,7 @@
     "no-return-assign": 0,
     "no-mixed-operators": 0,
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "no-continue": 0
+    "no-continue": 0,
+    "quotes": [0]
   }
 }
