@@ -29,7 +29,20 @@ defmodule Urban.Attachment do
       file.file_name
       |> Path.basename(Path.extname(file.file_name))
 
-    "#{scope.id}_#{version}_#{file_name}"
+    name = "#{scope.id}_#{version}_#{file_name}"
+
+    IO.puts("""
+
+
+
+    file name:
+        #{inspect(name)}
+
+
+
+    """)
+
+    name
   end
 
   def storage_dir(_, {_file, %{__meta__: %{source: {_, table}}}}) do

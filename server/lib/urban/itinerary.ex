@@ -12,8 +12,8 @@ defmodule Urban.Itinerary do
   ]
 
   schema "itineraries" do
-    field(:description, :string)
     field(:title, :string)
+    field(:description, :string)
     field(:image, Attachment.Type)
 
     timestamps()
