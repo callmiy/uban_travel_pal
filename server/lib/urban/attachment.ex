@@ -29,20 +29,14 @@ defmodule Urban.Attachment do
       file.file_name
       |> Path.basename(Path.extname(file.file_name))
 
-    name = "#{scope.id}_#{version}_#{file_name}"
+    id_version = "#{scope.id}_#{version}_"
 
-    IO.puts("""
-
-
-
-    file name:
-        #{inspect(name)}
-
-
-
-    """)
-
-    name
+    if String.starts_with?(file_name, id_version) do
+      file_name
+    else
+      "#{id_version}#{file_name}"
+    end
+    |> IO.inspect()
   end
 
   def storage_dir(_, {_file, %{__meta__: %{source: {_, table}}}}) do
