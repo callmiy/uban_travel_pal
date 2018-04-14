@@ -3,11 +3,11 @@
   "main.css.map": "static/css/main.a63bfde7.css.map",
   "main.js": "static/js/main.bc10667e.js",
   "main.js.map": "static/js/main.bc10667e.js.map",
-  "static/media/cuisine.webp": "static/media/cuisine.80b54112.webp",
-  "static/media/header.webp": "static/media/header.d9afcf22.webp",
-  "static/media/local-experience.webp": "static/media/local-experience.bf6af3c5.webp",
-  "static/media/slide1.jpg": "static/media/slide1.b1e34ed3.jpg",
-  "static/media/slide2.jpg": "static/media/slide2.a68412c9.jpg",
-  "static/media/slide3.jpeg": "static/media/slide3.e57d49e6.jpeg",
-  "static/media/urban-beach-hol.webp": "static/media/urban-beach-hol.ad1a9809.webp"
+  "static\\media\\cuisine.webp": "static/media/cuisine.80b54112.webp",
+  "static\\media\\header.webp": "static/media/header.d9afcf22.webp",
+  "static\\media\\local-experience.webp": "static/media/local-experience.bf6af3c5.webp",
+  "static\\media\\slide1.jpg": "static/media/slide1.b1e34ed3.jpg",
+  "static\\media\\slide2.jpg": "static/media/slide2.a68412c9.jpg",
+  "static\\media\\slide3.jpeg": "static/media/slide3.e57d49e6.jpeg",
+  "static\\media\\urban-beach-hol.webp": "static/media/urban-beach-hol.ad1a9809.webp"
 }
