@@ -1,3 +1,5 @@
+import Ecto.Query
+
 alias UrbanWeb.ValidationController
 alias Urban.Factory
 alias Urban.Repo

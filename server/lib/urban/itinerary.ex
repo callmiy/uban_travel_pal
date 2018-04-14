@@ -21,19 +21,16 @@ defmodule Urban.Itinerary do
 
   @doc false
   def changeset(it, attrs \\ %{}) do
-    IO.inspect(attrs)
-
     it
-    |> cast(attrs, [:title, :description])
-    |> unique_constraint(:title, name: :itineraries_title_index)
+    |> changeset_no_image(attrs)
     |> cast_attachments(attrs, [:image])
-    |> validate_required([:title, :description, :image])
+    |> validate_required([:image])
   end
 
-  def changeset_manual_image(it, attrs \\ %{}) do
+  def changeset_no_image(it, attrs \\ %{}) do
     it
-    |> cast(attrs, [:title, :description, :image])
-    |> unique_constraint(:title, name: :itineraries_title_index)
-    |> validate_required([:title, :description, :image])
+    |> cast(attrs, [:title, :description])
+    |> unique_constraint(:title, name: :itineraries_title)
+    |> validate_required([:title, :description])
   end
 end

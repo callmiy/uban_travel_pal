@@ -4,5 +4,6 @@ defmodule UrbanWeb.ExAdmin.Itinerary do
   alias Urban.Itinerary
 
   register_resource Itinerary do
+    # actions(:all, except: [:new, :destroy, :edit])
   end
 end

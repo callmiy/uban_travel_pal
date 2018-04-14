@@ -32,8 +32,8 @@ defmodule Urban.Attachment do
     "#{scope.id}_#{version}_#{file_name}"
   end
 
-  def storage_dir(_, {_file, _obj}) do
-    "api/uploads/"
+  def storage_dir(_, {_file, %{__meta__: %{source: {_, table}}}}) do
+    "api/uploads/#{table}"
   end
 
   def default_url(:thumb) do

@@ -14,6 +14,12 @@ defmodule UrbanWeb.Router do
     plug(:accepts, ["json", "html"])
   end
 
+  scope "/api/admin", UrbanWeb.ExAdmin do
+    pipe_through(:browser)
+
+    post("/itineraries", ItineraryController, :create)
+  end
+
   scope "/api/admin", ExAdmin do
     pipe_through(:browser)
     admin_routes()

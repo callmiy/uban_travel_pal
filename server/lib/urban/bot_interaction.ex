@@ -36,7 +36,7 @@ defmodule Urban.BotInteraction do
   end
 
   @doc false
-  def changeset(bot_interaction, attrs) do
+  def changeset(bot_interaction, attrs \\ %{}) do
     bot_interaction
     |> cast(attrs, [
       :response_path,

@@ -22,7 +22,7 @@ defmodule Urban.TravelPref do
   end
 
   @doc false
-  def changeset(travel_pref, attrs) do
+  def changeset(travel_pref, attrs \\ %{}) do
     travel_pref
     |> cast(attrs, [
       :tourist_attraction,
