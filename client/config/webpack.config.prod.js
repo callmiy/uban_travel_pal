@@ -314,7 +314,7 @@ module.exports = {
       navigateFallback: publicUrl + "/index.html",
       // Ignores URLs starting from /__ and api (useful for Firebase):
       // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
-      navigateFallbackWhitelist: [/^(?!\/(__|api)).*/],
+      navigateFallbackWhitelist: [/^(?!\/(__|api|css|fonts|images|js)).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
     }),
