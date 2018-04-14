@@ -9,6 +9,8 @@ config :urban, UrbanWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :urban, arc_storage_dir: "test/fixtures/test-uploads"
+
 # Configure your database
 config :urban, Urban.Repo,
   adapter: Ecto.Adapters.Postgres,

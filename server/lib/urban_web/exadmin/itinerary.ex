@@ -5,7 +5,7 @@ defmodule UrbanWeb.ExAdmin.Itinerary do
   alias Urban.Attachment
 
   register_resource Itinerary do
-    show it do
+    show _ do
       attributes_table do
         row(:title)
         row(:description)

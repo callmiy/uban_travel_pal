@@ -5,7 +5,6 @@ defmodule Urban.ItineraryApi do
 
   import Ecto.Query, warn: false
   alias Urban.Repo
-
   alias Urban.Itinerary
   alias Urban.Attachment
 
@@ -51,28 +50,26 @@ defmodule Urban.ItineraryApi do
 
   """
 
-  def create_it(%{image: image} = attrs) do
-    {:ok, image_base} = Attachment.store({image, %Itinerary{}})
+  def create_it(params \\ %{}) do
+    change = Itinerary.changeset_no_image(%Itinerary{}, params)
 
-    updated_at =
-      Timex.now()
-      |> Timex.format!("{ISO:Extended:Z}")
-      |> Ecto.DateTime.cast!()
+    Repo.transaction(fn ->
+      with {:ok, it1} <- Repo.insert(change),
+           {:ok, it2} <- Itinerary.changeset(it1, params) |> Repo.update() do
+        it2
+      else
+        {:error, changeset} ->
+          Repo.rollback(changeset)
+          {:error, changeset}
+      end
+    end)
+    |> case do
+      {:ok, it} ->
+        {:ok, it}
 
-    image = %{
-      file_name: image_base,
-      updated_at: updated_at
-    }
-
-    :itinerary
-    |> Urban.Factory.build(%{attrs | image: image})
-    |> Repo.insert()
-  end
-
-  def create(attrs \\ %{}) do
-    %Itinerary{}
-    |> Itinerary.changeset(attrs)
-    |> Repo.insert()
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:error, %{changeset | action: :insert}}
+    end
   end
 
   @doc """
@@ -128,5 +125,20 @@ defmodule Urban.ItineraryApi do
       :description,
       :image
     ]
+  end
+
+  @doc """
+  From the image attribute of an itirenary, make the image url and attach it
+  to the itinerary. The itinerary is returned as a map
+  """
+  def make_image_url(%Itinerary{} = it) do
+    it
+    |> Map.from_struct()
+    |> make_image_url()
+  end
+
+  def make_image_url(%{image: image} = it) do
+    url = Attachment.url({image, it})
+    Map.put(it, :image_url, url)
   end
 end

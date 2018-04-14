@@ -57,12 +57,17 @@ defmodule Urban.Factory do
 
   def itinerary_factory do
     seq = sequence("")
-    path = "../server/test/uploads/beans.png"
+
+    image = %Plug.Upload{
+      filename: "image.png",
+      path: "test/fixtures/image.png",
+      content_type: "image/png"
+    }
 
     %Itinerary{
       title: "Itinerary title #{seq}",
       description: "Itinerary description #{seq}",
-      image: path
+      image: image
     }
   end
 end

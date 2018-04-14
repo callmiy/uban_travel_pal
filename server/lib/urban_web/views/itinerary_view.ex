@@ -11,9 +11,11 @@ defmodule UrbanWeb.ItineraryView do
   end
 
   def render("itinerary.json", %{itinerary: itinerary}) do
-    %{id: itinerary.id,
+    %{
+      id: itinerary.id,
       title: itinerary.title,
       description: itinerary.description,
-      image: itinerary.image}
+      image: itinerary.image
+    }
   end
 end

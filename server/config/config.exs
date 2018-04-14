@@ -31,6 +31,7 @@ config :ex_admin,
     UrbanWeb.ExAdmin.Itinerary
   ]
 
+config :urban, arc_storage_dir: "api/uploads"
 config :arc, storage: Arc.Storage.Local
 config :goth, json: "./1523607878351" |> File.read!()
 

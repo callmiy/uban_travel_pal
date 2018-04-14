@@ -4,6 +4,7 @@ defmodule Urban.Attachment do
 
   @versions [:original, :thumb]
   @extension_whitelist ~w(.jpg .jpeg .gif .png)
+  @storage Application.get_env(:urban, :arc_storage_dir)
 
   def acl(:thumb, _), do: :public_read
 
@@ -36,11 +37,10 @@ defmodule Urban.Attachment do
     else
       "#{id_version}#{file_name}"
     end
-    |> IO.inspect()
   end
 
   def storage_dir(_, {_file, %{__meta__: %{source: {_, table}}}}) do
-    "api/uploads/#{table}"
+    "#{@storage}/#{table}"
   end
 
   def default_url(:thumb) do

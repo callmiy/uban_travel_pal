@@ -1,26 +1,13 @@
-defmodule UrbanWeb.ExAdmin.ItineraryController do
+defmodule UrbanWeb.ExAdmin.ItineraryAdminController do
   @resource "itineraries"
   use ExAdmin.Web, :resource_controller
 
-  alias Urban.Itinerary
-  alias Urban.Repo
+  alias Urban.ItineraryApi, as: Api
 
   def create(conn, defn, %{itinerary: it_params} = params) do
     model = defn.__struct__
-    change = Itinerary.changeset_no_image(%Itinerary{}, it_params)
-    resource = conn.assigns.resource
 
-    Repo.transaction(fn ->
-      with {:ok, it1} <- Repo.insert(change),
-           {:ok, it2} <- Itinerary.changeset(it1, it_params) |> Repo.update() do
-        it2
-      else
-        {:error, changeset} ->
-          Repo.rollback(changeset)
-          {:error, changeset}
-      end
-    end)
-    |> case do
+    case Api.create_it(it_params) do
       {:error, changeset} ->
         changeset = %{
           changeset

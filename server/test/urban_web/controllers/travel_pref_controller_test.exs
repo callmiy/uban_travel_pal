@@ -4,6 +4,7 @@ defmodule UrbanWeb.TravelPrefControllerTest do
   alias Urban.TravelPrefApi, as: Api
   alias Urban.TravelPref
   alias Urban.TravelPrefTestHelper, as: Helper
+  alias Urban.Utils
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -32,6 +33,41 @@ defmodule UrbanWeb.TravelPrefControllerTest do
       conn = get(conn, travel_pref_path(conn, :show, id))
       data = json_response(conn, 200)["data"]
       assert Helper.validate_attrs_equal(data, params)
+    end
+
+    test "renders travel preferences from bot when data is valid", %{conn: conn} do
+      activities_str = "[\"Dine in restaurants\",\"Try local cuisine\",\"Guided tours\"]"
+
+      purpose_str = " [\"Travelling Couple\"]"
+
+      {params1, _interaction} =
+        Helper.make_params(%{
+          meet_locals: "yes",
+          tourist_attraction: "yes",
+          purpose: activities_str,
+          activities: purpose_str
+        })
+
+      params2 = %{
+        params1
+        | meet_locals: true,
+          tourist_attraction: true,
+          purpose: Utils.json_string_as_object(activities_str),
+          activities: Utils.json_string_as_object(purpose_str)
+      }
+
+      conn =
+        post(
+          conn,
+          travel_pref_path(conn, :create),
+          preferences_str: params1
+        )
+
+      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      conn = get(conn, travel_pref_path(conn, :show, id))
+      data = json_response(conn, 200)["data"]
+      assert Helper.validate_attrs_equal(data, params2)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

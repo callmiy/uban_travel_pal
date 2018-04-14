@@ -17,7 +17,7 @@ defmodule UrbanWeb.Router do
   scope "/api/admin", UrbanWeb.ExAdmin do
     pipe_through(:browser)
 
-    post("/itineraries", ItineraryController, :create)
+    post("/itineraries", ItineraryAdminController, :create)
   end
 
   scope "/api/admin", ExAdmin do
@@ -43,7 +43,7 @@ defmodule UrbanWeb.Router do
     )
 
     resources(
-      "/itinerarys",
+      "/itineraries",
       ItineraryController,
       except: [:new, :edit]
     )

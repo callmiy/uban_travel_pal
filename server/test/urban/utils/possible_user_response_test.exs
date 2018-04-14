@@ -4,6 +4,5 @@ defmodule Urban.UtilsPossibleUserResponseTest do
 
   test "get all possible user responses" do
     PossibleUserResponses.response_combinations()
-    |> IO.inspect()
   end
 end
