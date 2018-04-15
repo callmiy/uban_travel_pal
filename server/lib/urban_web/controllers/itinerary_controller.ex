@@ -7,8 +7,8 @@ defmodule UrbanWeb.ItineraryController do
   action_fallback(UrbanWeb.FallbackController)
 
   def index(conn, _params) do
-    itinerarys = Api.list()
-    render(conn, "index.json", itinerarys: itinerarys)
+    its = Api.list()
+    render(conn, "index.json", its: its)
   end
 
   def create(conn, %{"it" => params}) do
@@ -16,20 +16,20 @@ defmodule UrbanWeb.ItineraryController do
       conn
       |> put_status(:created)
       |> put_resp_header("location", itinerary_path(conn, :show, it))
-      |> render("show.json", itinerary: it)
+      |> render("show.json", it: it)
     end
   end
 
   def show(conn, %{"id" => id}) do
     itinerary = Api.get!(id)
-    render(conn, "show.json", itinerary: itinerary)
+    render(conn, "show.json", it: itinerary)
   end
 
   def update(conn, %{"id" => id, "it" => params}) do
     it = Api.get!(id)
 
     with {:ok, %Itinerary{} = it} <- Api.update_it(it, params) do
-      render(conn, "show.json", itinerary: it)
+      render(conn, "show.json", it: it)
     end
   end
 
@@ -39,5 +39,33 @@ defmodule UrbanWeb.ItineraryController do
     with {:ok, %Itinerary{}} <- Api.delete_it(itinerary) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def user_itineraries(conn, %{"start" => "true"} = params) do
+    user_itineraries(conn, Map.put(params, "start", true))
+  end
+
+  def user_itineraries(conn, %{"start" => true}) do
+    {first, next_its} = Api.ids() |> Api.compute_itineraries()
+    render(conn, "show.json", first_it: first, next_it_ids: next_its)
+  end
+
+  def user_itineraries(conn, %{"next_itinerary_ids" => nil}) do
+    render(conn, "show.json", first_it: nil)
+  end
+
+  def user_itineraries(conn, %{"next_itinerary_ids" => ""}) do
+    render(conn, "show.json", first_it: nil)
+  end
+
+  def user_itineraries(conn, %{"next_itinerary_ids" => next}) when is_list(next) do
+    {first, next_its} = Api.compute_itineraries(next)
+    render(conn, "show.json", first_it: first, next_it_ids: next_its)
+  end
+
+  def user_itineraries(conn, %{"next_itinerary_ids" => next} = params) when is_binary(next) do
+    next = Poison.decode!(next)
+    params = Map.put(params, "next_itinerary_ids", next)
+    user_itineraries(conn, params)
   end
 end

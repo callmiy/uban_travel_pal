@@ -50,6 +50,7 @@ defmodule UrbanWeb.Router do
 
     post("/validate_activities", ValidationController, :validate_activities)
     post("/validate_purposes", ValidationController, :validate_purposes)
+    post("/user-itineraries", ItineraryController, :user_itineraries)
   end
 
   scope "/", UrbanWeb do

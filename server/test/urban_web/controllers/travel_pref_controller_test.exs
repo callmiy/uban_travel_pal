@@ -63,10 +63,7 @@ defmodule UrbanWeb.TravelPrefControllerTest do
           preferences_str: params1
         )
 
-      assert %{"id" => id} = json_response(conn, 201)["data"]
-
-      conn = get(conn, travel_pref_path(conn, :show, id))
-      data = json_response(conn, 200)["data"]
+      data = json_response(conn, 201)["data"]
       assert Helper.validate_attrs_equal(data, params2)
     end
 

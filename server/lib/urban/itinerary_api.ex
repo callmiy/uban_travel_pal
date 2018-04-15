@@ -8,6 +8,8 @@ defmodule Urban.ItineraryApi do
   alias Urban.Itinerary
   alias Urban.Attachment
 
+  @storage_dir Application.get_env(:urban, :arc_storage_dir)
+
   @doc """
   Returns the list of itinerarys.
 
@@ -131,14 +133,55 @@ defmodule Urban.ItineraryApi do
   From the image attribute of an itirenary, make the image url and attach it
   to the itinerary. The itinerary is returned as a map
   """
-  def make_image_url(%Itinerary{} = it) do
-    it
-    |> Map.from_struct()
-    |> make_image_url()
+  def make_image_url(%{image: image} = it) do
+    it =
+      case it do
+        %Itinerary{} -> Map.from_struct(it)
+        _ -> it
+      end
+
+    url = Attachment.url({image, it})
+
+    # for testing purpose: in production, url starts with
+    # "https://...@storage_dir", but in local, starts with "/@storage_dir"
+    local = String.starts_with?(url, "/#{@storage_dir}")
+    Enum.into(it, %{image_url: url, local: local})
   end
 
-  def make_image_url(%{image: image} = it) do
-    url = Attachment.url({image, it})
-    Map.put(it, :image_url, url)
+  @doc """
+  Get all travel preference ID
+  """
+  def ids do
+    Repo.all(from(t in Itinerary, select: %{id: t.id}))
+    |> Enum.map(&Map.get(&1, :id))
+  end
+
+  @doc """
+  Given a list of itinerary IDs, return the first full itinerary and
+  only IDs for the rest.
+  Return "nil" if empty
+  """
+  def compute_itineraries(it_ids) do
+    case it_ids do
+      [] ->
+        {nil, nil}
+
+      [first | rest] ->
+        first_with_url =
+          first
+          |> get!()
+          |> make_image_url()
+
+        rest_returned =
+          case rest do
+            [] ->
+              nil
+
+            rest_ ->
+              rest_
+          end
+
+        {first_with_url, rest_returned}
+    end
   end
 end

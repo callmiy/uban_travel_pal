@@ -1,9 +1,13 @@
 defmodule UrbanWeb.ItineraryControllerTest do
   use UrbanWeb.ConnCase
 
-  # @moduletag :norun
-
   alias Urban.ItineraryApi, as: Api
+
+  @storage Application.get_env(:urban, :arc_storage_dir)
+
+  setup_all context do
+    on_exit(context, fn -> File.rm_rf!(@storage) end)
+  end
 
   describe "index" do
     test "lists all itinerarys", %{conn: conn} do
@@ -76,7 +80,113 @@ defmodule UrbanWeb.ItineraryControllerTest do
     end
   end
 
-  def make_it(_) do
+  describe "user itineraries" do
+    test "fetch 1st time with start boolean and 2 itineraries in database", %{conn: conn} do
+      [it1, it2] = make_its(2)
+
+      conn = post(conn, itinerary_path(conn, :user_itineraries), start: true)
+
+      %{
+        "first_itinerary" => first,
+        "next_itinerary_ids" => next
+      } = json_response(conn, 200)["data"]
+
+      assert it1.id == first["id"]
+      assert [it2.id] == next
+    end
+
+    test "fetch 1st time with start string and 2 itineraries in database", %{conn: conn} do
+      [it1, it2] = make_its(2)
+
+      conn = post(conn, itinerary_path(conn, :user_itineraries), start: "true")
+
+      %{
+        "first_itinerary" => first,
+        "next_itinerary_ids" => next
+      } = json_response(conn, 200)["data"]
+
+      assert it1.id == first["id"]
+      assert [it2.id] == next
+    end
+
+    test "fetch last itinerary with List", %{conn: conn} do
+      {:ok, it: it2} = make_it(nil)
+
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          next_itinerary_ids: [it2.id]
+        )
+
+      assert %{
+               "first_itinerary" => first,
+               "next_itinerary_ids" => nil
+             } = json_response(conn, 200)["data"]
+
+      assert it2.id == first["id"]
+    end
+
+    test "fetch last itinerary with binary", %{conn: conn} do
+      {:ok, it: it2} = make_it(nil)
+
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          next_itinerary_ids: "[#{it2.id}]"
+        )
+
+      assert %{
+               "first_itinerary" => first,
+               "next_itinerary_ids" => nil
+             } = json_response(conn, 200)["data"]
+
+      assert it2.id == first["id"]
+    end
+
+    test "fetch first time with 3 itineraries in database", %{conn: conn} do
+      [it1, it2, it3] = make_its(3)
+
+      conn = post(conn, itinerary_path(conn, :user_itineraries), start: true)
+
+      assert %{
+               "first_itinerary" => first,
+               "next_itinerary_ids" => next
+             } = json_response(conn, 200)["data"]
+
+      assert it1.id == first["id"]
+      assert [it2.id, it3.id] == next
+    end
+
+    test "nothing to fetch called with nil", %{conn: conn} do
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          next_itinerary_ids: nil
+        )
+
+      assert %{
+               "first_itinerary" => nil
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "nothing to fetch called with string", %{conn: conn} do
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          next_itinerary_ids: ""
+        )
+
+      assert %{
+               "first_itinerary" => nil
+             } = json_response(conn, 200)["data"]
+    end
+  end
+
+  defp make_it(_) do
     {:ok, it} =
       :itinerary
       |> build()
@@ -84,5 +194,13 @@ defmodule UrbanWeb.ItineraryControllerTest do
       |> Api.create_it()
 
     {:ok, it: it}
+  end
+
+  defp make_its(how_many) do
+    1..how_many
+    |> Enum.map(fn _ ->
+      {:ok, it: it} = make_it(nil)
+      it
+    end)
   end
 end
