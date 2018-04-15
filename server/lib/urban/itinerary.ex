@@ -31,6 +31,6 @@ defmodule Urban.Itinerary do
     it
     |> cast(attrs, [:title, :description])
     |> unique_constraint(:title, name: :itineraries_title)
-    |> validate_required([:title, :description])
+    |> validate_required([:title])
   end
 end

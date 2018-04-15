@@ -9,12 +9,6 @@ defmodule UrbanWeb.ExAdmin.ItineraryAdminController do
 
     case Api.create_it(it_params) do
       {:error, changeset} ->
-        changeset = %{
-          changeset
-          | required: [:title, :description, :image],
-            action: :insert
-        }
-
         changeset_errors =
           ExAdmin.ErrorsHelper.create_errors(
             changeset,
@@ -26,15 +20,10 @@ defmodule UrbanWeb.ExAdmin.ItineraryAdminController do
           |> Plug.Conn.assign(:changeset, changeset)
           |> Plug.Conn.assign(:ea_required, changeset.required)
 
-        data =
-          changeset
-          |> ExAdmin.Changeset.get_data()
-          |> Map.put(:id, nil)
-
         contents =
           do_form_view(
             conn,
-            data,
+            ExAdmin.Changeset.get_data(changeset),
             params
           )
 

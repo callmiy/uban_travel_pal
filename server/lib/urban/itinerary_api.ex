@@ -69,8 +69,15 @@ defmodule Urban.ItineraryApi do
       {:ok, it} ->
         {:ok, it}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:error, %{changeset | action: :insert}}
+      {:error, %Ecto.Changeset{data: data} = changeset} ->
+        changeset = %{
+          changeset
+          | action: :insert,
+            required: [:title, :image],
+            data: %{data | id: nil}
+        }
+
+        {:error, changeset}
     end
   end
 
