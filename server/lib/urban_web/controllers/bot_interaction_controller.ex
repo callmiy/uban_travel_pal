@@ -35,7 +35,7 @@ defmodule UrbanWeb.BotInteractionController do
 
     with {:ok, bot_user} <- get_or_create_bot_user(user_id),
          {:ok, %BotInteraction{id: id} = bot_interaction} <-
-           Api.create_bot_interaction(
+           Api.create_bot_int(
              Map.put(
                bot_interaction,
                "bot_user_id",
@@ -53,23 +53,23 @@ defmodule UrbanWeb.BotInteractionController do
   end
 
   def show(conn, %{"id" => id}) do
-    bot_interaction = Api.get_bot_interaction!(id)
+    bot_interaction = Api.get!(id)
     render(conn, "show.json", bot_interaction: bot_interaction)
   end
 
   def update(conn, %{"id" => id, "bot_interaction" => bot_interaction_params}) do
-    bot_interaction = Api.get_bot_interaction!(id)
+    bot_interaction = Api.get!(id)
 
     with {:ok, %BotInteraction{} = bot_interaction} <-
-           Api.update_bot_interaction(bot_interaction, bot_interaction_params) do
+           Api.update_bot_int(bot_interaction, bot_interaction_params) do
       render(conn, "show.json", bot_interaction: bot_interaction)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    bot_interaction = Api.get_bot_interaction!(id)
+    bot_interaction = Api.get!(id)
 
-    with {:ok, %BotInteraction{}} <- Api.delete_bot_interaction(bot_interaction) do
+    with {:ok, %BotInteraction{}} <- Api.delete_bot_int(bot_interaction) do
       send_resp(conn, :no_content, "")
     end
   end

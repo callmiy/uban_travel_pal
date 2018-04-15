@@ -2,19 +2,7 @@ defmodule Urban.BotInteractionHelper do
   import Urban.Factory
 
   alias Urban.Utils
-
-  @attrs [
-    :bot_connection_id,
-    :bot_id,
-    :bot_name,
-    :bot_platform,
-    :channel_id,
-    :datetime,
-    :message,
-    :message_type,
-    :metadata,
-    :response_path
-  ]
+  alias Urban.BotInteractionApi
 
   def make_params(attrs \\ %{}) do
     user = insert(:bot_user)
@@ -40,6 +28,6 @@ defmodule Urban.BotInteractionHelper do
   end
 
   def validate_attrs_equal(map1, map2) do
-    Utils.validate_keys_vals_equal(@attrs, map1, map2)
+    Utils.validate_keys_vals_equal(BotInteractionApi.attributes(), map1, map2)
   end
 end

@@ -5,18 +5,9 @@ defmodule Urban.Factory do
   alias Urban.BotInteraction
   alias Urban.BotUser
   alias Urban.Itinerary
+  alias Urban.BotInteractionApi
 
   @now Timex.now()
-
-  @metadata %{
-    "firstTimeUser" => true,
-    "browserName" => "Chrome Mobile",
-    "browserVersion" => "65.0.3325.181",
-    "operatingSystem" => "Android",
-    "operatingSystemVersion" => "5.0",
-    "deviceProduct" => "Galaxy S5",
-    "mobile" => true
-  }
 
   def travel_pref_factory do
     %TravelPref{
@@ -41,7 +32,7 @@ defmodule Urban.Factory do
       datetime: @now,
       message: sequence("message"),
       message_type: sequence("message_type"),
-      metadata: @metadata,
+      metadata: BotInteractionApi.test_metadat(),
       response_path: sequence("response_path"),
       bot_user: build(:bot_user)
     }
