@@ -9,6 +9,7 @@ defmodule UrbanWeb.ExAdmin.Itinerary do
       attributes_table do
         row(:title)
         row(:description)
+        row(:booking_url)
 
         row(
           :image,

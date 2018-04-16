@@ -15,6 +15,7 @@ defmodule Urban.Itinerary do
     field(:title, :string)
     field(:description, :string)
     field(:image, Attachment.Type)
+    field(:booking_url, :string)
 
     timestamps()
   end
@@ -29,7 +30,7 @@ defmodule Urban.Itinerary do
 
   def changeset_no_image(it, attrs \\ %{}) do
     it
-    |> cast(attrs, [:title, :description])
+    |> cast(attrs, [:title, :description, :booking_url])
     |> unique_constraint(:title, name: :itineraries_title)
     |> validate_required([:title])
   end

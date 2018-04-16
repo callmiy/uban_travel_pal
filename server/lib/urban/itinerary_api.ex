@@ -132,7 +132,8 @@ defmodule Urban.ItineraryApi do
     [
       :title,
       :description,
-      :image
+      :image,
+      :booking_url
     ]
   end
 

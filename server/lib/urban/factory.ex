@@ -58,7 +58,8 @@ defmodule Urban.Factory do
     %Itinerary{
       title: "Itinerary title #{seq}",
       description: "Itinerary description #{seq}",
-      image: image
+      image: image,
+      booking_url: "itinerary-booking-url-#{seq}"
     }
   end
 end
