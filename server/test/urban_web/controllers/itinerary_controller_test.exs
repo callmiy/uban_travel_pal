@@ -84,7 +84,13 @@ defmodule UrbanWeb.ItineraryControllerTest do
     test "fetch 1st time with start boolean and 2 itineraries in database", %{conn: conn} do
       [it1, it2] = make_its(2)
 
-      conn = post(conn, itinerary_path(conn, :user_itineraries), start: true)
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          start: true,
+          shuffle: false
+        )
 
       %{
         "first_itinerary" => first,
@@ -98,7 +104,13 @@ defmodule UrbanWeb.ItineraryControllerTest do
     test "fetch 1st time with start string and 2 itineraries in database", %{conn: conn} do
       [it1, it2] = make_its(2)
 
-      conn = post(conn, itinerary_path(conn, :user_itineraries), start: "true")
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          start: "true",
+          shuffle: false
+        )
 
       %{
         "first_itinerary" => first,
@@ -148,7 +160,13 @@ defmodule UrbanWeb.ItineraryControllerTest do
     test "fetch first time with 3 itineraries in database", %{conn: conn} do
       [it1, it2, it3] = make_its(3)
 
-      conn = post(conn, itinerary_path(conn, :user_itineraries), start: true)
+      conn =
+        post(
+          conn,
+          itinerary_path(conn, :user_itineraries),
+          start: true,
+          shuffle: false
+        )
 
       assert %{
                "first_itinerary" => first,

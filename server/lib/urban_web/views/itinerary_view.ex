@@ -37,7 +37,8 @@ defmodule UrbanWeb.ItineraryView do
       id: it.id,
       title: it.title,
       description: it.description,
-      image: it.image
+      image: it.image,
+      booking_url: it.booking_url
     }
   end
 end
