@@ -9,6 +9,7 @@ defmodule Urban.ItineraryApi do
   alias Urban.Attachment
 
   @storage_dir Application.get_env(:urban, :arc_storage_dir)
+  @storage_dir_prefix_pattern ~r/^\/[^\/]+/
 
   @doc """
   Returns the list of itinerarys.
@@ -152,7 +153,18 @@ defmodule Urban.ItineraryApi do
 
     # for testing purpose: in production, url starts with
     # "https://...@storage_dir", but in local, starts with "/@storage_dir"
-    local = String.starts_with?(url, "/#{@storage_dir}")
+    {local, url} =
+      if String.starts_with?(url, "/#{@storage_dir}") do
+        # strip the prefix from the url for requests coming from chatbot as this
+        # is already part of the chatbot url in the frontend
+        # may it is not such a good idea to have the frontend contain some that
+        # varies like the url prefix i.e instead of http://abc.com/api
+        # I should simply leave it as http://abc.com. This is more robust
+        {true, String.replace(url, @storage_dir_prefix_pattern, "")}
+      else
+        {false, url}
+      end
+
     Enum.into(it, %{image_url: url, local: local})
   end
 
@@ -160,8 +172,11 @@ defmodule Urban.ItineraryApi do
   Get all travel preference ID
   """
   def ids do
-    Repo.all(from(t in Itinerary, select: %{id: t.id}))
-    |> Enum.map(&Map.get(&1, :id))
+    Repo.all(from(t in Itinerary, select: t.id))
+  end
+
+  def get_by_ids(ids) do
+    Repo.all(from(t in Itinerary, where: t.id in ^ids))
   end
 
   @doc """

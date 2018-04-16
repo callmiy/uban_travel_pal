@@ -41,6 +41,18 @@ defmodule UrbanWeb.ItineraryController do
     end
   end
 
+  def user_itineraries(conn, %{"all" => "all"}) do
+    its =
+      Api.ids()
+      |> Enum.shuffle()
+      |> Enum.take(5)
+      |> Api.get_by_ids()
+      |> Enum.map(&Api.make_image_url/1)
+      |> Enum.shuffle()
+
+    render(conn, "index.json", its: its)
+  end
+
   # makes testing easier without the shuffle
   def user_itineraries(conn, %{"start" => _start, "shuffle" => false}) do
     {first, next_its} =
