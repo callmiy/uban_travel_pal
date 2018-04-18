@@ -11,6 +11,8 @@ defmodule Urban.Itinerary do
     autogenerate: {Timex.Ecto.DateTime, :autogenerate, []}
   ]
 
+  @cast_attrs [:title, :description, :booking_url]
+
   schema "itineraries" do
     field(:title, :string)
     field(:description, :string)
@@ -20,18 +22,29 @@ defmodule Urban.Itinerary do
     timestamps()
   end
 
-  @doc false
-  def changeset(it, attrs \\ %{}) do
-    it
-    |> changeset_no_image(attrs)
-    |> cast_attachments(attrs, [:image])
-    |> validate_required([:image])
+  def changeset(it, attrs \\ %{})
+
+  def changeset(%{inserted_at: nil, updated_at: nil} = it, attrs) do
+    %{microsecond: {ms, _}} = now = Timex.now()
+    # default microseconds is 6-precision, but when doing query, the datetime is
+    # truncated to 3-precision. So we insert with 3-precision
+    now = %{now | microsecond: {ms, 3}}
+
+    it =
+      it
+      |> change(attrs)
+      |> put_change(:updated_at, now)
+      |> put_change(:inserted_at, now)
+
+    changeset(it, attrs)
   end
 
-  def changeset_no_image(it, attrs \\ %{}) do
+  @doc false
+  def changeset(it, attrs) do
     it
-    |> cast(attrs, [:title, :description, :booking_url])
+    |> cast(attrs, @cast_attrs)
     |> unique_constraint(:title, name: :itineraries_title)
-    |> validate_required([:title])
+    |> cast_attachments(attrs, [:image])
+    |> validate_required([:title, :image])
   end
 end

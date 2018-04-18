@@ -35,6 +35,8 @@ config :urban, arc_storage_dir: "api/uploads"
 config :arc, storage: Arc.Storage.Local
 config :goth, json: "./1523607878351" |> File.read!()
 
+config :absinthe, schema: UrbanWeb.Schema
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

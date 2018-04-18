@@ -54,32 +54,9 @@ defmodule Urban.ItineraryApi do
   """
 
   def create_it(params \\ %{}) do
-    change = Itinerary.changeset_no_image(%Itinerary{}, params)
-
-    Repo.transaction(fn ->
-      with {:ok, it1} <- Repo.insert(change),
-           {:ok, it2} <- Itinerary.changeset(it1, params) |> Repo.update() do
-        it2
-      else
-        {:error, changeset} ->
-          Repo.rollback(changeset)
-          {:error, changeset}
-      end
-    end)
-    |> case do
-      {:ok, it} ->
-        {:ok, it}
-
-      {:error, %Ecto.Changeset{data: data} = changeset} ->
-        changeset = %{
-          changeset
-          | action: :insert,
-            required: [:title, :image],
-            data: %{data | id: nil}
-        }
-
-        {:error, changeset}
-    end
+    %Itinerary{}
+    |> Itinerary.changeset(params)
+    |> Repo.insert()
   end
 
   @doc """
@@ -142,18 +119,21 @@ defmodule Urban.ItineraryApi do
   From the image attribute of an itirenary, make the image url and attach it
   to the itinerary. The itinerary is returned as a map
   """
-  def make_image_url(%{image: image} = it) do
-    it =
-      case it do
-        %Itinerary{} -> Map.from_struct(it)
-        _ -> it
-      end
+  def make_image_url(it) do
+    {local, url} = make_url(it)
 
+    it
+    |> Map.from_struct()
+    |> Enum.into(%{image_url: url, local: local})
+  end
+
+  def make_url(%{image: image} = it, strip_prefix \\ true) do
     url = Attachment.url({image, it})
 
     # for testing purpose: in production, url starts with
     # "https://...@storage_dir", but in local, starts with "/@storage_dir"
-    {local, url} =
+
+    {is_local, url_} =
       if String.starts_with?(url, "/#{@storage_dir}") do
         # strip the prefix from the url for requests coming from chatbot as this
         # is already part of the chatbot url in the frontend
@@ -165,7 +145,11 @@ defmodule Urban.ItineraryApi do
         {false, url}
       end
 
-    Enum.into(it, %{image_url: url, local: local})
+    if strip_prefix do
+      {is_local, url_}
+    else
+      {is_local, url}
+    end
   end
 
   @doc """
@@ -206,5 +190,19 @@ defmodule Urban.ItineraryApi do
 
         {first_with_url, rest_returned}
     end
+  end
+
+  def x_random_itineraries(how_many) when is_binary(how_many) do
+    how_many
+    |> String.to_integer()
+    |> x_random_itineraries()
+  end
+
+  def x_random_itineraries(how_many) when is_integer(how_many) do
+    ids()
+    |> Enum.shuffle()
+    |> Enum.take(how_many)
+    |> get_by_ids()
+    |> Enum.shuffle()
   end
 end

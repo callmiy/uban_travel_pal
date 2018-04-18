@@ -14,15 +14,29 @@ defmodule UrbanWeb.Router do
     plug(:accepts, ["json", "html"])
   end
 
-  scope "/api/admin", UrbanWeb.ExAdmin do
-    pipe_through(:browser)
-
-    post("/itineraries", ItineraryAdminController, :create)
-  end
-
   scope "/api/admin", ExAdmin do
     pipe_through(:browser)
     admin_routes()
+  end
+
+  scope "/api/graphiql" do
+    pipe_through(:api)
+
+    if Mix.env() == :dev do
+      forward(
+        "/admin",
+        Absinthe.Plug.GraphiQL,
+        schema: UrbanWeb.Schema,
+        context: %{pubsub: UrbanWeb.Endpoint}
+      )
+    end
+
+    forward(
+      "/",
+      Absinthe.Plug,
+      schema: UrbanWeb.Schema,
+      context: %{pubsub: UrbanWeb.Endpoint}
+    )
   end
 
   scope "/api", UrbanWeb do

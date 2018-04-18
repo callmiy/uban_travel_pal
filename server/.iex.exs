@@ -13,3 +13,6 @@ alias Urban.TravelPrefApi
 alias Urban.Attachment
 alias Urban.Itinerary
 alias Urban.ItineraryApi
+alias UrbanWeb.Schema, as: UrbanWebSchema
+alias UrbanWeb.ItinerarySchema
+alias UrbanWeb.ItineraryQueries

@@ -5,6 +5,7 @@ defmodule Urban.Attachment do
   @versions [:original, :thumb]
   @extension_whitelist ~w(.jpg .jpeg .gif .png)
   @storage Application.get_env(:urban, :arc_storage_dir)
+  @file_name_prefix "__x__"
 
   def acl(:thumb, _), do: :public_read
 
@@ -25,12 +26,25 @@ defmodule Urban.Attachment do
     }
   end
 
-  def filename(version, {file, scope}) do
+  # def filename(version, {file, %{inserted_at: nil, updated_at: nil} = scope}) do
+  #   now = Timex.now()
+
+  #   scope = %{
+  #     scope
+  #     | inserted_at: now,
+  #       updated_at: now
+  #   }
+
+  #   filename(version, {file, scope})
+  # end
+
+  def filename(version, {file, %{inserted_at: inserted_at} = _scope}) do
     file_name =
       file.file_name
       |> Path.basename(Path.extname(file.file_name))
 
-    id_version = "#{scope.id}_#{version}_"
+    inserted_at = Timex.to_gregorian_seconds(inserted_at)
+    id_version = "#{@file_name_prefix}_#{inserted_at}_#{version}_"
 
     if String.starts_with?(file_name, id_version) do
       file_name
