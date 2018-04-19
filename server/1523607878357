@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "urban-travel-pals",
+  "private_key_id": "3f1d7f704b624e646175f75292d6bc92424d4e96",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDqIxRaBXkqWZmD\nLx44NuWU3+eNs8YwRyRvEWwlTYoDQ2LmznnHrBhyRY3H8P0aKY4WqYkjgHrmEd3A\nTi0ecUqNqRChOw9QX6EJLzgYdQhtboNNl23jvLxjUyBM1qbyFk8FhR1KyQGxjuFZ\nVT4VG2vNrEa0f7fEGIWh3BT0DfZqZPiR/VEBc4YO1waMEPIG3sV7vf7cxfVzao6g\nUgk06VUj+a6K6MAxDT9N8qfRtODBZmzT2FeSuf3e/gU2KIIjGCYJg0s9zxom2cDY\n1m5vA4hKaCMwguDViqYNJJSADF4PTcubVvzVIzNBWXLcXbN2xmlV2G3CwYL1bsrZ\nlm4ukBkxAgMBAAECggEACrYmovSvpaSaPZJtBUDbsXsp3oV8Om6yx8MKCc3Zk8sk\nLe+BykUBDE9KzHwltCn1BmvkqoNg/AASv07ESSmBMehrapjnWzO4zBEFNbc69riw\n2J6mKB5VFw0xQ9qpIherr1K285otEei5vgrEj5Yk0TDBvlW+fEHr8Sr+qWivHpBg\nGLWhRP6F/oon9Fw8Y6Bbz201OfybGG8jiCi6dE5/mpLT13y4X/JldOey/ZIJDnM3\nDvblssoceNvqE7Wl/Nb0IKL05GGSEbGpcuq0RjqfEnPs331LMayeuE6dGiLHcF72\nWwT1T6BmcJ9iViDR1Ia0kWDYIFduMoVQGx0Q0amdUQKBgQD3zfSg6g2tbdFysVzN\nypKxAKrMuMLtndHdzIEALQaqpE4lCJjAaLfySjqMcBCjQuyfTa19ZLAfH3Efm7fT\nMa2T1GQ6aO6DvtclrjWMr23gRwSbyXmSs59bNbxo8uB1MgPCWII9UXpxZLNjwTqk\ns05X/lULOLDwpGLmxLeFIPaUqQKBgQDx4Whh/3cuEh7JlIuQMWPCBNxIC9Hto8Fg\n8ohB/+1uky+cWhIF1JrwZAoVbJxwK5EiDzYLfnbhzaB/boizrs0VsJl7O5ithcSQ\nJTcDAsTIjylFEStbf2h+kYj3CnXH77gTYWoDJt9VMEZu8pEOWYxWlJdM1g0GWz+1\nK3YWQ+4tSQKBgEiTP0QpiFv0v9TxcRasb437fgp7SkvBXwewr09X4I31lRVvkR05\nDjad2svqvlSycw6s91S0OojC8qSpPItUD1wuZjRdKw3WxLg6b2CGuI1o/0aJGVwH\n03IpKMcr6uUoAsXWmj5PMKcpMQjUPNKj2RwYVtv0fI3d90FS99S7tLwRAoGAbULJ\nCBuCFomQ5rX3JTdqPKY9az4LojEqlUR5UHbvJdfO1e3J3mBfbN+DvpHFSNYlRSFh\n5GdIBFAChA3GKoR3l6iibAxLt3aJiCOHahDCG2av2ccbssUmyqWrHQzYj2w11mtW\nm/3fPHgGGO/xnm3M+v88KTU3xPtLF+d9/CjLWiECgYBXqdHdnvnyGN56hueSzEwP\nK/1Vm2C9apu0CnBfBt9ukyp3pEFeD8H5l3TAF8ZbrzwPIS0WghioYv+acqtC2pXL\nKpQ2ZHfAyHlQeYMSFhu7xZrgK4swnLVpqZJNewE2MDjgFVAHtxNphLNwkaraHg/u\nySQP7EuNGgfvg8RDweSUAA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "urban-travel-plan@urban-travel-pals.iam.gserviceaccount.com",
+  "client_id": "117878227408652488617",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/urban-travel-plan%40urban-travel-pals.iam.gserviceaccount.com"
+}

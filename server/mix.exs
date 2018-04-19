@@ -54,7 +54,8 @@ defmodule Urban.Mixfile do
       {:ex_admin, github: "smpallen99/ex_admin"},
       {:arc, "~> 0.8.0"},
       {:arc_ecto, "~> 0.7.0"},
-      {:arc_gcs, "~> 0.0.7"}
+      {:arc_gcs, "~> 0.0.7"},
+      {:csv, "~> 2.1"}
     ]
   end
 
