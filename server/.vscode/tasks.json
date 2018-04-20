@@ -107,15 +107,6 @@
         "cwd": ".."
       },
       "problemMatcher": []
-    },
-    {
-      "label": "Heroku migrate database",
-      "type": "shell",
-      "command": "heroku run \"POOL_SIZE=2 mix ecto.migrate\"",
-      "options": {
-        "cwd": ".."
-      },
-      "problemMatcher": []
     }
   ]
 }
