@@ -31,16 +31,16 @@ defmodule Urban.TravelPrefTest do
 
   test "update_pref/2 with valid data updates the travel_pref" do
     pref = insert(:travel_pref)
-    update_attrs = %{meet_locals: false, city: "Berlin"}
+    update_attrs = %{first_time_in_city: false, city: "Berlin"}
 
     assert {:ok,
             %TravelPref{
               city: "Berlin",
-              meet_locals: false
+              first_time_in_city: false
             } = pref_} = Api.update_pref(pref, update_attrs)
 
     refute pref.city == pref_.city
-    refute pref.meet_locals == pref_.meet_locals
+    refute pref.first_time_in_city == pref_.first_time_in_city
     assert pref.id == pref_.id
   end
 
@@ -50,7 +50,7 @@ defmodule Urban.TravelPrefTest do
 
     assert {:error, %Ecto.Changeset{}} =
              Api.update_pref(pref, %{
-               meet_locals: nil,
+               first_time_in_city: nil,
                city: nil
              })
 

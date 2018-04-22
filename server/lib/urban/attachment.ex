@@ -26,18 +26,6 @@ defmodule Urban.Attachment do
     }
   end
 
-  # def filename(version, {file, %{inserted_at: nil, updated_at: nil} = scope}) do
-  #   now = Timex.now()
-
-  #   scope = %{
-  #     scope
-  #     | inserted_at: now,
-  #       updated_at: now
-  #   }
-
-  #   filename(version, {file, scope})
-  # end
-
   def filename(version, {file, %{inserted_at: inserted_at} = _scope}) do
     file_name =
       file.file_name

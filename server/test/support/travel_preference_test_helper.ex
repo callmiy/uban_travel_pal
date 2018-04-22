@@ -6,10 +6,8 @@ defmodule Urban.TravelPrefTestHelper do
     :activities,
     :budget,
     :city,
-    :meet_locals,
     :plan_type,
-    :purpose,
-    :tourist_attraction
+    :first_time_in_city
     # :bot_interaction
   ]
 

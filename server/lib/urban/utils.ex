@@ -40,6 +40,7 @@ defmodule Urban.Utils do
 
   def yes_no_to_boolean(string) do
     string
+    |> String.trim()
     |> String.downcase()
     |> yes_no_to_boolean()
   end

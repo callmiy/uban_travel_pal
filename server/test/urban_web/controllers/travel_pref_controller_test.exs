@@ -38,22 +38,16 @@ defmodule UrbanWeb.TravelPrefControllerTest do
     test "renders travel preferences from bot when data is valid", %{conn: conn} do
       activities_str = "[\"Dine in restaurants\",\"Try local cuisine\",\"Guided tours\"]"
 
-      purpose_str = " [\"Travelling Couple\"]"
-
       {params1, _interaction} =
         Helper.make_params(%{
-          meet_locals: "yes",
-          tourist_attraction: "yes",
-          purpose: activities_str,
-          activities: purpose_str
+          first_time_in_city: "yes",
+          activities: activities_str
         })
 
       params2 = %{
         params1
-        | meet_locals: true,
-          tourist_attraction: true,
-          purpose: Utils.json_string_as_object(activities_str),
-          activities: Utils.json_string_as_object(purpose_str)
+        | first_time_in_city: true,
+          activities: Utils.json_string_as_object(activities_str)
       }
 
       conn =

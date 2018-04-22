@@ -69,16 +69,12 @@ defmodule UrbanWeb.TravelPrefController do
   defp normalize_prefs_from_chat(prefs) do
     %{
       "activities" => a,
-      "purpose" => p,
-      "tourist_attraction" => t,
-      "meet_locals" => m
+      "first_time_in_city" => f
     } = prefs
 
     %{
       "activities" => Utils.json_string_as_object(a),
-      "purpose" => Utils.json_string_as_object(p),
-      "tourist_attraction" => Utils.yes_no_to_boolean(t),
-      "meet_locals" => Utils.yes_no_to_boolean(m)
+      "first_time_in_city" => Utils.yes_no_to_boolean(f)
     }
     |> Enum.into(prefs)
   end

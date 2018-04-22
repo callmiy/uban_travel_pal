@@ -11,11 +11,9 @@ defmodule Urban.TravelPref do
   schema "travel_prefs" do
     field(:city, :string)
     field(:budget, :string)
-    field(:purpose, {:array, :string})
     field(:activities, {:array, :string})
-    field(:tourist_attraction, :boolean)
-    field(:meet_locals, :boolean)
     field(:plan_type, :string)
+    field(:first_time_in_city, :boolean)
     belongs_to(:bot_interaction, BotInteraction)
 
     timestamps()
@@ -25,20 +23,16 @@ defmodule Urban.TravelPref do
   def changeset(travel_pref, attrs \\ %{}) do
     travel_pref
     |> cast(attrs, [
-      :tourist_attraction,
-      :purpose,
+      :first_time_in_city,
       :plan_type,
-      :meet_locals,
       :city,
       :budget,
       :activities,
       :bot_interaction_id
     ])
     |> validate_required([
-      :tourist_attraction,
-      :purpose,
+      :first_time_in_city,
       :plan_type,
-      :meet_locals,
       :city,
       :budget,
       :activities,

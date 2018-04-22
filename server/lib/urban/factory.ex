@@ -14,10 +14,8 @@ defmodule Urban.Factory do
       activities: [sequence("activity")],
       budget: sequence("budget"),
       city: sequence("city"),
-      meet_locals: true,
+      first_time_in_city: true,
       plan_type: sequence("plan_type"),
-      purpose: [sequence("travel purpose")],
-      tourist_attraction: true,
       bot_interaction: build(:bot_int)
     }
   end
