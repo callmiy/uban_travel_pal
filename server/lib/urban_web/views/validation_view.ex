@@ -14,7 +14,11 @@ defmodule UrbanWeb.ValidationView do
     %{id: validation.id, name: validation.name}
   end
 
-  def render("validate.json", %{responses: responses}) do
-    responses
+  def render("validate.json", %{response: response}) do
+    response
+  end
+
+  def render("itineraries", data) do
+    data
   end
 end
