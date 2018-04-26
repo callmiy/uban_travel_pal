@@ -6,10 +6,10 @@ defmodule Urban.BotInteractionTest do
   alias Urban.BotInteractionHelper, as: Helper
   alias Urban.Utils
 
-  test "list_bot_interactions/0 returns all bot_interactions" do
+  test "list/0 returns all bot_interactions" do
     {params, _user} = Helper.make_params()
     {:ok, bot_int} = Api.create_bot_int(params)
-    [bot_int_] = Api.list_bot_interactions()
+    [bot_int_] = Api.list()
 
     assert normalize_dt(bot_int_) == normalize_dt(bot_int)
   end

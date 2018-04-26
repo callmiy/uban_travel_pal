@@ -13,11 +13,11 @@ defmodule Urban.BotInteractionApi do
 
   ## Examples
 
-      iex> list_bot_interactions()
+      iex> list()
       [%BotInteraction{}, ...]
 
   """
-  def list_bot_interactions do
+  def list do
     Repo.all(BotInteraction)
   end
 

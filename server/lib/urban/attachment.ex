@@ -21,7 +21,7 @@ defmodule Urban.Attachment do
   def transform(:thumb, _) do
     {
       :convert,
-      "-thumbnail 100x100^ -gravity center -extent 100x100 -format png",
+      "-thumbnail 200x200^ -gravity center -extent 200x200 -format png",
       :png
     }
   end
