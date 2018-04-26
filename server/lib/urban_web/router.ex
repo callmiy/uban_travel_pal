@@ -45,13 +45,13 @@ defmodule UrbanWeb.Router do
     resources("/bot_users", BotUserController, except: [:new, :edit])
 
     resources(
-      "/bot_interactions",
+      "/bot-interactions",
       BotInteractionController,
       except: [:new, :edit]
     )
 
     resources(
-      "/travel_prefs",
+      "/travel-prefs",
       TravelPrefController,
       except: [:new, :edit]
     )
@@ -62,8 +62,14 @@ defmodule UrbanWeb.Router do
       except: [:new, :edit]
     )
 
+    resources(
+      "/bot-user-name-emails",
+      BotUserNameEmailController,
+      except: [:new, :edit]
+    )
+
     post("/validate_activities", ValidationController, :validate_activities)
-    post("/validate_purposes", ValidationController, :validate_purposes)
+    post("/get-itineraries", ValidationController, :get_itineraries)
     post("/user-itineraries", ItineraryController, :user_itineraries)
   end
 

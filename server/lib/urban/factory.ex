@@ -6,6 +6,7 @@ defmodule Urban.Factory do
   alias Urban.BotUser
   alias Urban.Itinerary
   alias Urban.BotInteractionApi
+  alias Urban.BotUserNameEmail
 
   @now Timex.now()
 
@@ -58,6 +59,15 @@ defmodule Urban.Factory do
       description: "Itinerary description #{seq}",
       image: image,
       booking_url: "itinerary-booking-url-#{seq}"
+    }
+  end
+
+  def bot_user_name_email_factory do
+    seq = sequence("")
+
+    %BotUserNameEmail{
+      name: "name-#{seq}",
+      email: "email-#{seq}@botuser.com"
     }
   end
 end
