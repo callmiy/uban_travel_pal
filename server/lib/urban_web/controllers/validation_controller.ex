@@ -670,7 +670,7 @@ defmodule UrbanWeb.ValidationController do
     ]
   end
 
-  def get_itinerary(@exploring, @local_bars) do
+  def get_itinerary("@exploring", "@local_bars") do
     [
       %{
         name: "DDR Museum",
