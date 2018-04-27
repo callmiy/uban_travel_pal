@@ -670,7 +670,7 @@ defmodule UrbanWeb.ValidationController do
     ]
   end
 
-  def get_itinerary("@exploring", "@local_bars") do
+  def get_itinerary(@exploring, @local_bars) do
     [
       %{
         name: "DDR Museum",
@@ -687,60 +687,63 @@ defmodule UrbanWeb.ValidationController do
         url: "http://michelbergerhotel.com/de/"
       },
       %{
-        name: "",
+        name: "Food, Art, History & Culture",
         address: "",
         fee: "",
-        byline: "",
-        url: ""
+        byline:
+          "Having someone showing you the city is the best way to join the locals. This one is not boring, we promise",
+        url:
+          "https://www.likealocalguide.com/berlin/tours/this-is-berlin-food-art-history-culture?utm_campaign=marketplace_click&utm_medium=tours_page_normal&utm_source=berlin&utm_content=walking-tours"
       },
       %{
-        name: "",
-        address: "",
+        name: "Shiso Burger",
+        address: "Auguststr. 29c, 10119 Berlin, Deutschland",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "Have you heard about the Korean Burger? No? Fine, visit",
+        url: "http://www.shisoburger.de"
       },
       %{
-        name: "",
-        address: "",
+        name: "Crackers",
+        address: "Friedrichstr. 158 (Unter den Linden), 10117 Berlin, Deutschland",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "When the time comes for dinner, visit",
+        url: "http://crackersberlin.com"
       },
       %{
-        name: "",
-        address: "",
+        name: "Lebowski",
+        address: "Niederbarnimstr. 23 Berlin",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "This will help you to prepare for the party night",
+        url: "https://www.facebook.com/pages/Lebowski/157730124251200"
       },
       %{
-        name: "",
-        address: "",
+        name: "Zosch",
+        address: "Tucholskystr. 30 Berlin",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "Or",
+        url:
+          "http://www.zosch-berlin.de/index.php?go=alleTermine&data=1&all=1&sess=80kicir8qvkrdmo5ic6rooqu36"
       },
       %{
-        name: "",
-        address: "",
+        name: "Club der Visionäre",
+        address: "Am Flutgraben 1 12435 Berlin",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "Or",
+        url: "https://www.facebook.com/ClubderVisionaere/?rf=222026867916166"
       },
       %{
-        name: "",
-        address: "",
+        name: "Rauschgold",
+        address: "Mehringdamm 62 Berlin",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "Or",
+        url: "http://rauschgold.berlin"
       },
       %{
-        name: "",
-        address: "",
+        name: "Alte Kantine in der Kulturbrauerei",
+        address: "Knaackstr. 97 Berlin",
         fee: "",
-        byline: "",
-        url: ""
+        byline: "And maybe you will still have energy to check",
+        url: "https://www.facebook.com/pages/Kulturbrauerei-Alte-Kantine/407678825910435"
       }
     ]
   end
