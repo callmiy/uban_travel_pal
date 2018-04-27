@@ -155,7 +155,7 @@ defmodule UrbanWeb.ValidationController do
         address: "Rosenthaler Str. 63 Berlin",
         fee: "",
         byline: "Or dinner",
-        url: "www.hashi-kitchen.de/"
+        url: "http://hashi-kitchen.de/en/"
       },
       %{
         name: "Katteschmaus (cafe bar club)",
@@ -223,7 +223,7 @@ defmodule UrbanWeb.ValidationController do
         address: "Hauptsr. 15, 10317 Berlin",
         fee: "",
         byline: "And maybe later",
-        url: "www.sisyphos-berlin.net/"
+        url: "http://sisyphos-berlin.net"
       }
     ]
   end
@@ -314,7 +314,7 @@ defmodule UrbanWeb.ValidationController do
         address: "Oranienplatz 14, 10999 Berlin",
         fee: "",
         byline: "While during the day we highly recommend to visit",
-        url: "www.facebook.com/oraberlin/"
+        url: "https://www.facebook.com/oraberlin/"
       },
       %{
         name: "Food, Art, History & Culture",
@@ -364,7 +364,7 @@ defmodule UrbanWeb.ValidationController do
         address: "Briesestr. 9, Neukölln Berlin",
         fee: "",
         byline: "We love breakfasts",
-        url: "www.thefuturebreakfast.com/"
+        url: "http://thefuturebreakfast.com"
       },
       %{
         name: "Cielo Di Berlino",
@@ -589,6 +589,158 @@ defmodule UrbanWeb.ValidationController do
         fee: "",
         byline: "",
         url: "http://www.zosch-berlin.de"
+      }
+    ]
+  end
+
+  def get_itinerary(@theme_tours, @nite_life) do
+    [
+      %{
+        name: "Berlin Essentials: sightseeing and cuisine",
+        address: "",
+        fee: "",
+        byline: "How about to get to know Berlin by visiting",
+        url:
+          "https://www.likealocalguide.com/berlin/tours/berlin-sightseeing-essentials-local-cuisine?utm_campaign=marketplace_click&utm_medium=tours_page_normal&utm_source=berlin&utm_content=walking-tours"
+      },
+      %{
+        name: "Einstein",
+        address: "Kurfürstenstraße 58 10785 Berlin",
+        fee: "",
+        byline: "We believe that breakfasts that recharge for the whole day can be found",
+        url: "https://www.cafeeinstein.com/menu/"
+      },
+      %{
+        name: "Berlin behind the Wall (Cold war)",
+        address: "",
+        fee: "",
+        byline: "How about a bit of a history",
+        url:
+          "https://www.likealocalguide.com/berlin/tours/cold-war-berlin-behind-the-wall?utm_campaign=marketplace_click&utm_medium=tours_page_normal&utm_source=berlin&utm_content=walking-tours"
+      },
+      %{
+        name: "Curry36",
+        address: "Mehringdamm 36, 10961 Berlin",
+        fee: "",
+        byline: "Well if you will get hungry than check",
+        url: "http://www.curry36.de"
+      },
+      %{
+        name: "ORA",
+        address: "Oranienplatz 14, 10999 Berlin",
+        fee: "",
+        byline: "And",
+        url: "https://www.facebook.com/oraberlin/"
+      },
+      %{
+        name: "Burgermeister",
+        address: "Oberbaumstraße 8 Berlin",
+        fee: "",
+        byline: "Don’t forget to grab a good Burger",
+        url: "http://burger-meister.de"
+      },
+      %{
+        name: "AN URBAN GARDEN",
+        address: "35-38 Prinzenstraße, Berlin",
+        fee: "",
+        byline: "Or perhaps you would like to visit",
+        url: "https://www.berlin.de/kultur-und-tickets/tipps/2407321-1678259-urban-gardening.html"
+      },
+      %{
+        name: "Katteschmaus (cafe bar club)",
+        address: "KaterHolzig, Michaelkirchstr. 23, 10179 Berlin",
+        fee: "",
+        byline: "When the time for party comes check maybe first",
+        url: "http://www.katerholzig.de/restaurant"
+      },
+      %{
+        name: "Sisyphos",
+        address: "Hauptsr. 15, 10317 Berlin",
+        fee: "",
+        byline: "And who knows how the evening will go, those could be handy to know",
+        url: "http://sisyphos-berlin.net"
+      },
+      %{
+        name: "Alte Kantine in der Kulturbrauerei",
+        address: "Knaackstr. 97 Berlin",
+        fee: "",
+        byline: "",
+        url: "https://www.facebook.com/pages/Kulturbrauerei-Alte-Kantine/407678825910435"
+      }
+    ]
+  end
+
+  def get_itinerary(@exploring, @local_bars) do
+    [
+      %{
+        name: "DDR Museum",
+        address: "Karl-Liebknecht-Str. 1, Mitte 10178",
+        fee: "€9.50",
+        byline: "Have you visited",
+        url: "https://www.ddr-museum.de/en"
+      },
+      %{
+        name: "Michelberger Hotel",
+        address: "Warschauer Straße 39 Berlin",
+        fee: "",
+        byline: "Well maybe before you would consider to grab a good breakfast",
+        url: "http://michelbergerhotel.com/de/"
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
       }
     ]
   end
