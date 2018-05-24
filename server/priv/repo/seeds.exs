@@ -40,6 +40,5 @@ csv_file
     |> Map.put("image", image)
 
   Api.create_it(it)
-  |> IO.inspect()
 end)
 |> Enum.to_list()

@@ -156,11 +156,21 @@ defmodule Urban.ItineraryApi do
   Get all travel preference ID
   """
   def ids do
-    Repo.all(from(t in Itinerary, select: t.id))
+    Repo.all(
+      from(
+        t in Itinerary,
+        select: t.id
+      )
+    )
   end
 
   def get_by_ids(ids) do
-    Repo.all(from(t in Itinerary, where: t.id in ^ids))
+    Repo.all(
+      from(
+        t in Itinerary,
+        where: t.id in ^ids
+      )
+    )
   end
 
   @doc """

@@ -748,20 +748,87 @@ defmodule UrbanWeb.ValidationController do
     ]
   end
 
+  def get_itinerary(@exploring, @cuisine) do
+    [
+      %{
+        name: "Deutsche Kinemathek",
+        address: "Potsdamer Straße 2, Mitte 10785",
+        fee: "€7 (free Thursdays 4-8pm)",
+        byline: "Have you visited already",
+        url: "https://www.deutsche-kinemathek.de"
+      },
+      %{
+        name: "Jewish bike Tour",
+        address: "",
+        fee: "",
+        byline: "How about",
+        url: "https://www.visitberlin.de/en/tour-10-cycling-tour-mitte"
+      },
+      %{
+        name: "Tadshikische Teestube",
+        address: "Oranienburger Str. 27 Berlin",
+        fee: "",
+        byline: "Well maybe before you would consider to grab a good breakfast",
+        url: "http://www.facebook.com/pages/Tadshikische-Teestube/423281914430765"
+      },
+      %{
+        name: "Berlin Essentials: sightseeing and cuisine",
+        address: "",
+        fee: "",
+        byline: "The great think will be to take a tour",
+        url:
+          "https://www.likealocalguide.com/berlin/tours/berlin-sightseeing-essentials-local-cuisine?utm_campaign=marketplace_click&utm_medium=tours_page_normal&utm_source=berlin&utm_content=walking-tours"
+      },
+      %{
+        name: "Distrikt Coffee",
+        address: "",
+        fee: "",
+        byline: "Locals love lunch",
+        url: "http://distriktcoffee.de"
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      },
+      %{
+        name: "",
+        address: "",
+        fee: "",
+        byline: "",
+        url: ""
+      }
+    ]
+  end
+
   def get_itinerary(_a, _b) do
     get_itinerary(@guided_tours, @nite_life)
   end
 
   def get_itinerary(its) do
     its
-    |> Enum.map(fn %{name: name} = it ->
-      case Map.has_key?(it, :byline) do
-        true ->
-          %{it | byline: "#{it.byline} at #{name}"}
+    |> Enum.map(fn
+      %{byline: byline, name: name} = it ->
+        %{it | byline: "#{byline} at #{name}"}
 
-        false ->
-          Map.put(it, :byline, "View Details")
-      end
+      it ->
+        Map.put(it, :byline, "View Details")
     end)
 
     # |> Enum.shuffle()
